@@ -1,0 +1,8 @@
+<div>
+  <h1>
+    Schedule
+  </h1>
+  <div *ngIf="entries.length > 0">
+    <app-schedule-element *ngFor="let entry of entries" [entry]="entry"></app-schedule-element>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div *ngIf="entry.scheduled; else isLive">
+  <label>Scheduled</label>
+</div>
+<ng-template #isLive>
+  <div *ngIf="entry.live; else isCompleted">
+    <label>Live</label>
+  </div>
+</ng-template>
+<ng-template #isCompleted>
+  <div>
+    <label>Complete</label>
+  </div>
+</ng-template>

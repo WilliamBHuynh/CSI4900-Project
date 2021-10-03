@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  background-color: #1F2527;
+}
+
+h1 {
+  color: var(--title-font-colour);
+  font-family: Roboto;
+}
+
+:root {
+  --title-font-colour: #9FD3E8;
+}
