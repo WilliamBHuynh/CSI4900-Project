@@ -1,6 +1,15 @@
-div {
-  /*border: 2px solid white;*/
+.container {
+  border: 4px solid var(--highlight-colour);
   margin-bottom: 30px;
+  padding-bottom: 10px;
   width: 50%;
-  background-color: white;
+}
+.container:hover {
+  background-color: var(--highlight-colour);
+}
+.container:hover div{
+  background-color: var(--highlight-colour);
+}
+.container:hover label{
+  color: black;
 }

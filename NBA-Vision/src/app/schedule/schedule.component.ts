@@ -8,9 +8,12 @@ import {ScheduleEntry} from "./schedule-entry";
 })
 export class ScheduleComponent implements OnInit {
   entries: ScheduleEntry[] = [];
-  testEntryScheduled: ScheduleEntry = {homeTeamName: 'TOR', awayTeamName: 'WAS', live: false, scheduled: true};
-  testEntryLive: ScheduleEntry = {homeTeamName: 'WAS', awayTeamName: 'TOR', live: true, scheduled: false};
-  testEntryDone: ScheduleEntry = {homeTeamName: 'TOR', awayTeamName: 'WAS', live: false, scheduled: false};
+  testEntryScheduled: ScheduleEntry = {homeTeamName: 'LAL', awayTeamName: 'WAS', live: false, scheduled: true,
+    scheduledTime: '5:00 PM', network: 'ABC'};
+  testEntryLive: ScheduleEntry = {homeTeamName: 'WAS', awayTeamName: 'LAL', live: true, scheduled: false,
+    homeTeamScore: 100, awayTeamScore: 99, timeRemaining: 12.4, quarter: '2nd', scheduledTime: '5:00 PM', network: 'ABC'};
+  testEntryDone: ScheduleEntry = {homeTeamName: 'LAL', awayTeamName: 'WAS', live: false, scheduled: false,
+    homeTeamScore: 100, awayTeamScore: 99, scheduledTime: '5:00 PM', network: 'ABC'};
   constructor() { }
 
   ngOnInit(): void {

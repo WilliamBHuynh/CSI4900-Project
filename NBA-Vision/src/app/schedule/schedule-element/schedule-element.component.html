@@ -1,13 +1,62 @@
-<div *ngIf="entry.scheduled; else isLive">
-  <label>Scheduled</label>
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-sm" align="center">
+      <img class="logo" src="../../../assets/logos/{{entry.homeTeamName.toLowerCase()}}.png">
+    </div>
+    <div class="col-sm" align="center"></div>
+    <div *ngIf="entry.scheduled; else isLive" class="col-sm" align="center">
+      <label class="justify-content-center">{{entry.scheduledTime}}</label>
+    </div>
+    <div class="col-sm" align="center"></div>
+    <div class="col-sm" align="center">
+      <img class="logo" src="../../../assets/logos/{{entry.awayTeamName.toLowerCase()}}.png">
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-sm" align="center">
+      <label>{{entry.homeTeamName}}</label>
+    </div>
+    <div class="col-sm" align="center"></div>
+    <div *ngIf="entry.scheduled; else quarter" class="col-sm" align="center">
+      <label>{{entry.network}}</label>
+    </div>
+    <div class="col-sm" align="center"></div>
+    <div class="col-sm" align="center">
+      <label>{{entry.awayTeamName}}</label>
+    </div>
+  </div>
 </div>
 <ng-template #isLive>
-  <div *ngIf="entry.live; else isCompleted">
-    <label>Live</label>
-  </div>
+  <ng-container *ngIf="entry.live; else isCompleted">
+    <div class="col-sm" align="left">
+      <label>{{entry.homeTeamScore}}</label>
+    </div>
+    <div class="col-sm" align="center">
+      <label>{{entry.timeRemaining}}</label>
+    </div>
+    <div class="col-sm" align="right">
+      <label>{{entry.awayTeamScore}}</label>
+    </div>
+  </ng-container>
 </ng-template>
 <ng-template #isCompleted>
-  <div>
-    <label>Complete</label>
+  <div class="col-sm" align="left">
+    <label>{{entry.homeTeamScore}}</label>
   </div>
+  <div class="col-sm" align="center">
+    <label>Final</label>
+  </div>
+  <div class="col-sm" align="right">
+    <label>{{entry.awayTeamScore}}</label>
+  </div>
+</ng-template>
+<ng-template #quarter>
+  <ng-container *ngIf="entry.live; else finalScore">
+    <div class="col-sm" align="center">
+      <label>{{entry.quarter}}</label>
+    </div>
+  </ng-container>
+</ng-template>
+<ng-template #finalScore>
+  <div class="col-sm" align="center"></div>
 </ng-template>
