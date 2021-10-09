@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  background-color: var(--main-bg-colour);
+}
+
+div {
+  background-color: var(--main-bg-colour);
+}
+
+div label {
+  color: white;
+}
+
+h1 {
+  color: var(--title-font-colour);
+  font-family: Roboto;
+  font-weight: bold;
+}
+
+:root {
+  --title-font-colour: #9FD3E8;
+  --main-bg-colour: #1F2527;
+  --highlight-colour: #FBE6AA;
+}
+
+.logo {
+  width: 90px;
+  padding: 10px;
+}
