@@ -1,8 +1,11 @@
-<div>
-  <div align="center">
+<div align="center">
+  <div>
     <h1>
       Schedule
     </h1>
+  </div>
+  <div class="pb-3">
+    <label class="date">Today</label>
   </div>
   <div *ngIf="entries.length > 0">
     <app-schedule-element *ngFor="let entry of entries" [entry]="entry"></app-schedule-element>
