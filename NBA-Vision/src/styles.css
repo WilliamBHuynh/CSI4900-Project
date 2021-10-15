@@ -1,5 +1,6 @@
 html {
   background-color: var(--main-bg-colour);
+  font-family: Roboto;
 }
 
 div {
@@ -14,6 +15,8 @@ h1 {
   color: var(--title-font-colour);
   font-family: Roboto;
   font-weight: bold;
+  font-size: 60px;
+  padding-top: 40px;
 }
 
 :root {
