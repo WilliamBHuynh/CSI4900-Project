@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ScheduleEntry} from "./schedule-entry";
+import {GameService} from "../service/game.service";
 
 @Component({
   selector: 'app-schedule',
@@ -8,18 +9,19 @@ import {ScheduleEntry} from "./schedule-entry";
 })
 export class ScheduleComponent implements OnInit {
   entries: ScheduleEntry[] = [];
-  testEntryScheduled: ScheduleEntry = {homeTeamName: 'LAL', awayTeamName: 'WAS', live: false, scheduled: true,
-    scheduledTime: '5:00 PM', network: 'ABC'};
-  testEntryLive: ScheduleEntry = {homeTeamName: 'WAS', awayTeamName: 'LAL', live: true, scheduled: false,
-    homeTeamScore: 100, awayTeamScore: 99, timeRemaining: 12.4, quarter: '2nd', scheduledTime: '5:00 PM', network: 'ABC'};
-  testEntryDone: ScheduleEntry = {homeTeamName: 'LAL', awayTeamName: 'WAS', live: false, scheduled: false,
-    homeTeamScore: 100, awayTeamScore: 99, scheduledTime: '5:00 PM', network: 'ABC'};
-  constructor() { }
+  constructor(private service: GameService) { }
 
   ngOnInit(): void {
-    this.addEntry(this.testEntryScheduled);
-    this.addEntry(this.testEntryLive);
-    this.addEntry(this.testEntryDone);
+    this.refreshGames();
+  }
+
+  refreshGames(): void {
+    this.service.getGames().subscribe(data => {
+      data.forEach(game => {
+        const newEntry: ScheduleEntry = {homeTeamName: game.HomeTeamName, awayTeamName: game.VisitTeamName};
+        this.addEntry(newEntry);
+      });
+    })
   }
 
   addEntry(entry: ScheduleEntry) {

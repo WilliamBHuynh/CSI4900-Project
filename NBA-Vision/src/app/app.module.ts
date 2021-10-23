@@ -6,7 +6,9 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { ScheduleElementComponent } from './schedule/schedule-element/schedule-element.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
-import {RouterModule} from "@angular/router";
+import { RouterModule } from "@angular/router";
+import { GameService } from "./service/game.service";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,13 @@ import {RouterModule} from "@angular/router";
     HomeComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    RouterModule
+    RouterModule,
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

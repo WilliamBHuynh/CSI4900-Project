@@ -1,8 +1,8 @@
 export class ScheduleEntry {
   public homeTeamName: string;
   public awayTeamName: string;
-  public live: boolean;
-  public scheduled: boolean;
+  public live?: boolean;
+  public scheduled?: boolean;
   public network?: string;
   public scheduledTime?: string;
   public homeTeamScore?: number;
@@ -12,8 +12,8 @@ export class ScheduleEntry {
 
   constructor(homeTeamName: string,
               awayTeamName: string,
-              live: boolean,
-              scheduled: boolean,
+              live?: boolean,
+              scheduled?: boolean,
               network?: string,
               scheduledTime?: string,
               homeTeamScore?: number,
