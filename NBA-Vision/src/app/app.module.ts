@@ -9,13 +9,15 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule } from "@angular/router";
 import { GameService } from "./service/game.service";
 import { HttpClientModule } from '@angular/common/http';
+import { PredictionsComponent } from './predictions/predictions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScheduleComponent,
     ScheduleElementComponent,
-    HomeComponent
+    HomeComponent,
+    PredictionsComponent,
   ],
   imports: [
     HttpClientModule,
