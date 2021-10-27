@@ -13,6 +13,7 @@ Compile, build and run the webapp
 >ng serve
 
 ###Python
+
 In the root directory, create virtual Python environment 
 >python -m venv <env_name>
 
