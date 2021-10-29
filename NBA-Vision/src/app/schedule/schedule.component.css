@@ -4,5 +4,10 @@
 }
 .arrow {
   color: white;
-  padding: 15px;
+}
+.btn {
+  background-color: var(--main-bg-colour);
+}
+.btn:hover {
+  background-color: var(--highlight-colour);
 }

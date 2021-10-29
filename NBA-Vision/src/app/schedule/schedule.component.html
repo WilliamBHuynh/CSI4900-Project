@@ -5,13 +5,13 @@
     </h1>
   </div>
   <div class="pb-3">
-    <span class="arrow">
-        <i class="fa fa-arrow-circle-left fa-2x"></i>
-    </span>
+      <button class="btn">
+        <i class="fa fa-arrow-circle-left fa-2x arrow"></i>
+      </button>
     <label class="date">Today</label>
-    <span class="arrow">
-        <i class="fa fa-arrow-circle-right fa-2x"></i>
-    </span>
+    <button class="btn">
+      <i class="fa fa-arrow-circle-right fa-2x arrow"></i>
+    </button>
   </div>
   <div *ngIf="entries.length > 0">
     <app-schedule-element *ngFor="let entry of entries" [entry]="entry"></app-schedule-element>

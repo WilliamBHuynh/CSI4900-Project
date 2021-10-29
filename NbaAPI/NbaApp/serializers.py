@@ -7,6 +7,7 @@ class GameSerializer(serializers.ModelSerializer):
         model = Games
         fields = ('GameId',
                   'HomeTeamName',
-                  'VisitTeamName',
+                  'AwayTeamName',
                   'HomeTeamPts',
-                  'VisitTeamPts')
+                  'AwayTeamPts',
+                  'Date')

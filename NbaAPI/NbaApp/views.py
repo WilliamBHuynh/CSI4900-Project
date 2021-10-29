@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
+from basketball_reference_scraper.seasons import get_schedule
 
 from NbaApp.models import Games
 from NbaApp.serializers import GameSerializer
@@ -32,3 +32,10 @@ def gameApi(request, gameId=0):
         game = Games.objects.get(GameId=gameId)
         game.delete()
         return JsonResponse("Deleted Game successfully", safe=False)
+
+
+@csrf_exempt
+def scheduleApi(request, scheduleId=0):
+    if request.method == 'GET':
+        data = get_schedule(2022, playoffs=False)
+        return JsonResponse(data.to_json(date_format='iso'), safe=False)

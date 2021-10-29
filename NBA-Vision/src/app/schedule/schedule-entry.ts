@@ -1,34 +1,23 @@
 export class ScheduleEntry {
+  public date: Date;
   public homeTeamName: string;
   public awayTeamName: string;
-  public live?: boolean;
-  public scheduled?: boolean;
-  public network?: string;
-  public scheduledTime?: string;
+  public live: boolean;
   public homeTeamScore?: number;
   public awayTeamScore?: number;
-  public timeRemaining?: number;
-  public quarter?: string;
 
-  constructor(homeTeamName: string,
+  constructor(date: Date,
+              homeTeamName: string,
               awayTeamName: string,
-              live?: boolean,
-              scheduled?: boolean,
-              network?: string,
+              live: boolean,
               scheduledTime?: string,
               homeTeamScore?: number,
-              awayTeamScore?: number,
-              timeRemaining?: number,
-              quarter?: string) {
+              awayTeamScore?: number) {
+    this.date = date;
     this.homeTeamName = homeTeamName;
     this.awayTeamName = awayTeamName;
     this.live = live;
-    this.scheduled = scheduled;
-    this.network = network;
-    this.scheduledTime = scheduledTime;
     this.homeTeamScore = homeTeamScore;
     this.awayTeamScore = awayTeamScore;
-    this.timeRemaining = timeRemaining;
-    this.quarter = quarter;
   }
 }
