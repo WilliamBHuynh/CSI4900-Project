@@ -13,4 +13,15 @@ export class GameService {
   getGames(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/game/');
   }
+<<<<<<< Updated upstream
+=======
+
+  getSchedule(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/schedule/');
+  }
+
+  getPrediction(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/prediction/');
+  }
+>>>>>>> Stashed changes
 }
