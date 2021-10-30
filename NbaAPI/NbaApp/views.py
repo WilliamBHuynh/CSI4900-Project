@@ -2,8 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-<<<<<<< Updated upstream
-=======
+
 from basketball_reference_scraper.seasons import get_schedule
 from basketball_reference_scraper.teams import get_roster_stats
 import pandas as pd
@@ -11,7 +10,7 @@ import os
 import pickle
 
 import json
->>>>>>> Stashed changes
+
 
 from NbaApp.models import Games
 from NbaApp.serializers import GameSerializer
@@ -42,8 +41,6 @@ def gameApi(request, gameId=0):
         game = Games.objects.get(GameId=gameId)
         game.delete()
         return JsonResponse("Deleted Game successfully", safe=False)
-<<<<<<< Updated upstream
-=======
 
 
 @csrf_exempt
@@ -184,4 +181,4 @@ def normalizedName(teamName):
             return 8
         elif teamName == "Charlotte Hornets":
             return 3
->>>>>>> Stashed changes
+
