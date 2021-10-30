@@ -8,6 +8,7 @@ import {GameService} from "../service/game.service";
   styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
+  today = new Date();
   entries: ScheduleEntry[] = [];
   constructor(private service: GameService) { }
 
@@ -16,19 +17,18 @@ export class ScheduleComponent implements OnInit {
   }
 
   refreshGames(): void {
-    this.service.getSchedule().subscribe((data: any) => {
-      var obj = JSON.parse(data);
-      console.log(obj.DATE[0]);
-      console.log(obj.HOME[1000]);
-      console.log(obj.VISITOR[1000]);
-      console.log(obj.HOME_PTS[0]);
-      console.log(obj.VISITOR_PTS[0]);
-      const newEntry: ScheduleEntry = {date: obj.DATE[0], homeTeamName: this.convertTeamName(obj.HOME[0]), awayTeamName: this.convertTeamName(obj.VISITOR[0]),
-        live: obj.HOME_PTS[0] != null, homeTeamScore: obj.HOME_PTS[0], awayTeamScore: obj.VISITOR_PTS[0]};
-      const newEntryScheduled: ScheduleEntry = {date: obj.DATE[1000], homeTeamName: this.convertTeamName(obj.HOME[1000]), awayTeamName: this.convertTeamName(obj.VISITOR[1000]),
-        live: obj.HOME_PTS[1000] != null, homeTeamScore: obj.HOME_PTS[1000], awayTeamScore: obj.VISITOR_PTS[1000]};
-      this.addEntry(newEntry);
-      this.addEntry(newEntryScheduled);
+    this.service.getSchedule().subscribe((res: any) => {
+      const data = JSON.parse(res);
+      const convertedCurrentDate = this.today.toISOString().split('T', 1)[0];
+      console.log(convertedCurrentDate)
+      for (let i = 0; i < Object.keys(data.DATE).length; i++) {
+        if (data.DATE[i].split('T', 1)[0] == convertedCurrentDate) {
+          const newEntry: ScheduleEntry = {date: data.DATE[i], homeTeamName: this.convertTeamName(data.HOME[i]),
+            awayTeamName: this.convertTeamName(data.VISITOR[i]), live: data.HOME_PTS[i] != null, homeTeamScore: data.HOME_PTS[i],
+            awayTeamScore: data.VISITOR_PTS[i]};
+          this.addEntry(newEntry);
+        }
+      }
     });
   }
 
