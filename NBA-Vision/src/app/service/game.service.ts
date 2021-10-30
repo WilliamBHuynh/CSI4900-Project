@@ -13,4 +13,8 @@ export class GameService {
   getGames(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/game/');
   }
+
+  getSchedule(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/schedule/');
+  }
 }
