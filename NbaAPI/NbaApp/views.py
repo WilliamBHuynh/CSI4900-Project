@@ -5,9 +5,12 @@ from django.http.response import JsonResponse
 
 from basketball_reference_scraper.seasons import get_schedule
 from basketball_reference_scraper.teams import get_roster_stats
+from nba_api.stats.endpoints import teamdashboardbyteamperformance
 import pandas as pd
 import os
 import pickle
+from datetime import datetime;
+
 
 import json
 
@@ -52,63 +55,85 @@ def scheduleApi(request, scheduleId=0):
 
 @csrf_exempt
 def predictionApi(request, scheduleId=0):
-    print("heelo")
     if request.method == 'GET':
-        data = getStats('Boston Celtics','Miami Heat')
-        y = data.to_json()
+        data = get_schedule(2022, playoffs=False)
+        today = datetime.today().strftime('%Y-%m-%d')
+        gamesToday = data.loc[(data['DATE'] == today )]
+        gamesToday.reset_index(drop=True, inplace=True)
+        predData = getStats(gamesToday.at[0,"HOME"],gamesToday.at[0,"VISITOR"]) 
+        for index,row in gamesToday.iterrows():
+            if index > 0 :
+                predToAppend = getStats(gamesToday.at[index,"HOME"],gamesToday.at[index,"VISITOR"])
+                predData=predData.append(predToAppend)
+        predData.reset_index(drop=True, inplace=True)
+        y = predData.to_json()
         return JsonResponse(y, safe=False)
+    if request.method == 'POST':
+        print("test")
 
 
 def getStats(team1,team2):
     #path = os.path.dirname(os.path.dirname(os.getcwd()))
     #path= path+r"\NBA-Vision\src\assets\ML"
-    leagueStats = pd.read_excel(r"C:\Users\Jugra\Desktop\School\Year 4\Semester 2\Honours Project\CSI4900-Project\CSI4900-Project\NBA-Vision\src\assets\ML\teamStatsFilled.xlsx")
-    leagueStats = leagueStats.drop(leagueStats.columns[0],1)
-    team1Stats = leagueStats.loc[(leagueStats['team'] == team1 )]
-    team1Stats=team1Stats.reset_index()
-    team2Stats = leagueStats.loc[(leagueStats['team'] == team1 )]
-    team2Stats=team2Stats.reset_index()
+    team1ids=normalizedName(team1)
+    team2ids=normalizedName(team2)
+
+    team1Stats = teamdashboardbyteamperformance.TeamDashboardByTeamPerformance(team1ids[1],per_mode_detailed='PerGame')
+    team1Stats = team1Stats.overall_team_dashboard.get_data_frame()
+    team1Stats.reset_index(drop=True, inplace=True)
+
+    team2Stats = teamdashboardbyteamperformance.TeamDashboardByTeamPerformance(team2ids[1],per_mode_detailed='PerGame')
+    team2Stats = team2Stats.overall_team_dashboard.get_data_frame()
+    team2Stats.reset_index(drop=True, inplace=True)
+
+    #leagueStats = pd.read_excel(r"C:\Users\Jugra\Desktop\School\Year 4\Semester 2\Honours Project\CSI4900-Project\CSI4900-Project\NBA-Vision\src\assets\ML\teamStatsFilled.xlsx")
+    #leagueStats = leagueStats.drop(leagueStats.columns[0],1)
+    #team1Stats = leagueStats.loc[(leagueStats['team'] == team1 )]
+    #team1Stats=team1Stats.reset_index()
+    #team2Stats = leagueStats.loc[(leagueStats['team'] == team2 )]
+    #team2Stats=team2Stats.reset_index()
     combinedStats = pd.read_csv(r"C:\Users\Jugra\Desktop\School\Year 4\Semester 2\Honours Project\CSI4900-Project\CSI4900-Project\NBA-Vision\src\assets\ML\template.csv")
-    combinedStats.at[0,'team'] = normalizedName(team1Stats.at[0,'team'])
-    combinedStats.at[0,'made_field_goals'] = team1Stats.at[0,'made_field_goals']
-    combinedStats.at[0,'attempted_field_goals'] = team1Stats.at[0,'attempted_field_goals']
-    combinedStats.at[0,'made_three_point_field_goals'] = team1Stats.at[0,'made_three_point_field_goals']
-    combinedStats.at[0,'attempted_three_point_field_goals'] = team1Stats.at[0,'attempted_three_point_field_goals']
-    combinedStats.at[0,'made_free_throws'] = team1Stats.at[0,'made_free_throws']
-    combinedStats.at[0,'attempted_free_throws'] = team1Stats.at[0,'attempted_free_throws']
-    combinedStats.at[0,'offensive_rebounds'] = team1Stats.at[0,'offensive_rebounds']
-    combinedStats.at[0,'defensive_rebounds'] = team1Stats.at[0,'defensive_rebounds']
-    combinedStats.at[0,'assists'] = team1Stats.at[0,'assists']
-    combinedStats.at[0,'steals'] = team1Stats.at[0,'steals']
-    combinedStats.at[0,'blocks'] = team1Stats.at[0,'blocks']
-    combinedStats.at[0,'turnovers'] = team1Stats.at[0,'turnovers']
-    combinedStats.at[0,'personal_fouls'] = team1Stats.at[0,'personal_fouls']
-    combinedStats.at[0,'location'] = 1
-    combinedStats.at[0,'opponent'] = normalizedName(team2Stats.at[0,'team'])
-    combinedStats.at[0,'elo'] = team1Stats.at[0,'elo']
-    combinedStats.at[0,'defRating'] = team1Stats.at[0,'defRating']
-    combinedStats.at[0,'team2'] = normalizedName(team2Stats.at[0,'team'])
-    combinedStats.at[0,'made_field_goals2'] = team2Stats.at[0,'made_field_goals']
-    combinedStats.at[0,'attempted_field_goals2'] = team2Stats.at[0,'attempted_field_goals']
-    combinedStats.at[0,'made_three_point_field_goals2'] = team2Stats.at[0,'made_three_point_field_goals']
-    combinedStats.at[0,'attempted_three_point_field_goals2'] = team2Stats.at[0,'attempted_three_point_field_goals']
-    combinedStats.at[0,'made_free_throws2'] = team2Stats.at[0,'made_free_throws']
-    combinedStats.at[0,'attempted_free_throws2'] = team2Stats.at[0,'attempted_free_throws']
-    combinedStats.at[0,'offensive_rebounds2'] = team2Stats.at[0,'offensive_rebounds']
-    combinedStats.at[0,'defensive_rebounds2'] = team2Stats.at[0,'defensive_rebounds']
-    combinedStats.at[0,'assists2'] = team2Stats.at[0,'assists']
-    combinedStats.at[0,'steals2'] = team2Stats.at[0,'steals']
-    combinedStats.at[0,'blocks2'] = team2Stats.at[0,'blocks']
-    combinedStats.at[0,'turnovers2'] = team2Stats.at[0,'turnovers']
-    combinedStats.at[0,'personal_fouls2'] = team2Stats.at[0,'personal_fouls']
-    combinedStats.at[0,'location2'] = 0
-    combinedStats.at[0,'opponent2'] = normalizedName(team1Stats.at[0,'team'])
-    combinedStats.at[0,'elo2'] = team2Stats.at[0,'elo']
-    combinedStats.at[0,'defRating2'] = team2Stats.at[0,'defRating']
+    combinedStats.at[0,'team'] = team1ids[0]
+    combinedStats.at[0,'FGM'] = team1Stats.at[0,'FGM']
+    combinedStats.at[0,'FGA'] = team1Stats.at[0,'FGA']
+    combinedStats.at[0,'TPM'] = team1Stats.at[0,'FG3M']
+    combinedStats.at[0,'TPA'] = team1Stats.at[0,'FG3A']
+    combinedStats.at[0,'FTM'] = team1Stats.at[0,'FTM']
+    combinedStats.at[0,'FTA'] = team1Stats.at[0,'FTA']
+    combinedStats.at[0,'OR'] = team1Stats.at[0,'OREB']
+    combinedStats.at[0,'DR'] = team1Stats.at[0,'DREB']
+    combinedStats.at[0,'AS'] = team1Stats.at[0,'AST']
+    combinedStats.at[0,'STL'] = team1Stats.at[0,'STL']
+    combinedStats.at[0,'BLK'] = team1Stats.at[0,'BLK']
+    combinedStats.at[0,'TO'] = team1Stats.at[0,'TOV']
+    combinedStats.at[0,'PF'] = team1Stats.at[0,'PF']
+    combinedStats.at[0,'LOC'] = 1
+    combinedStats.at[0,'OPP'] = team2ids[0]
+    combinedStats.at[0,'ELO'] = 1500
+    combinedStats.at[0,'DEF'] = team1Stats.at[0,'FGA'] - team1Stats.at[0,'OREB'] + team1Stats.at[0,'TOV']
+    combinedStats.at[0,'team2'] = team2ids[0]
+    combinedStats.at[0,'FGM2'] = team2Stats.at[0,'FGM']
+    combinedStats.at[0,'FGA2'] = team2Stats.at[0,'FGA']
+    combinedStats.at[0,'TPM2'] = team2Stats.at[0,'FG3M']
+    combinedStats.at[0,'TPA2'] = team2Stats.at[0,'FG3A']
+    combinedStats.at[0,'FTM2'] = team2Stats.at[0,'FTM']
+    combinedStats.at[0,'FTA2'] = team2Stats.at[0,'FTA']
+    combinedStats.at[0,'OR2'] = team2Stats.at[0,'OREB']
+    combinedStats.at[0,'DR2'] = team2Stats.at[0,'DREB']
+    combinedStats.at[0,'AS2'] = team2Stats.at[0,'AST']
+    combinedStats.at[0,'STL2'] = team2Stats.at[0,'STL']
+    combinedStats.at[0,'BLK2'] = team2Stats.at[0,'BLK']
+    combinedStats.at[0,'TO2'] = team2Stats.at[0,'TOV']
+    combinedStats.at[0,'PF2'] = team2Stats.at[0,'PF']
+    combinedStats.at[0,'LOC2'] = 0
+    combinedStats.at[0,'OPP2'] = team1ids[0]
+    combinedStats.at[0,'ELO2'] = 1500
+    combinedStats.at[0,'DEF2'] = 1
+
 
     combinedStats.assign(outcome="")
     
-    combinedStats.at[0,"outcome"]=predict(combinedStats)
+    combinedStats.at[0,"OUTCOME"]=predict(combinedStats)
 
     return combinedStats
 
@@ -122,63 +147,63 @@ def predict (combinedStats):
 def normalizedName(teamName):
     
         if teamName =="Atlanta Hawks":
-            return 0
+            return [0,1610612737]
         elif teamName =="Boston Celtics":
-            return 1
+            return [1,1610612738]
         elif teamName =="Cleveland Cavaliers":
-            return 5
+            return [5,1610612739]
         elif teamName =="New Orleans Pelicans":
-            return 18
+            return [18,1610612740]
         elif teamName =="Chicago Bulls":
-            return 4
+            return [4,1610612741]
         elif teamName =="Dallas Mavericks":
-            return 26
+            return [26,1610612742]
         elif teamName == "Denver Nuggets":
-            return 7
+            return [7,1610612743]
         elif teamName == "Golden State Warriors":
-            return 9
+            return [9,1610612744]
         elif teamName == "Houston Rockets":
-            return 10
+            return [10,1610612745]
         elif teamName == "Los Angeles Clippers":
-            return 12
+            return [12,1610612746]
         elif teamName == "Los Angeles Lakers":
-            return 13
+            return [13,1610612747]
         elif teamName == "Miami Heat":
-            return 15
+            return [15,1610612748]
         elif teamName == "Milwaukee Bucks":
-            return 16
+            return [16,1610612749]
         elif teamName ==  "Minnesota Timberwolves":
-            return 17
+            return [17,1610612750]
         elif teamName ==  "Brooklyn Nets":
-            return 2
+            return [2,1610612751]
         elif teamName ==  "New York Knicks":
-            return 19
+            return [19,1610612752]
         elif teamName ==  "Orlando Magic":
-            return 21
+            return [21,1610612753]
         elif teamName ==  "Indiana Pacers":
-            return 11
+            return [11,1610612754]
         elif teamName ==  "Philadelphia 76ers":
-            return 22
+            return [22,1610612755]
         elif teamName ==  "Phoenix Suns":
-            return 23
+            return [23,1610612756]
         elif teamName ==  "Portland Trail Blazers":
-            return 24
+            return [24,1610612757]
         elif teamName ==  "Sacramento Kings":
-            return 25
+            return [25,1610612758]
         elif teamName ==  "San Antonio Spurs":
-            return 26
+            return [26,1610612759]
         elif teamName ==  "Oklahoma City Thunder":
-            return 20
+            return [20,1610612760]
         elif teamName ==  "Toronto Raptors":
-            return 27
+            return [27,1610612761]
         elif teamName ==  "Utah Jazz":
-            return 28
+            return [28,1610612762]
         elif teamName ==  "Memphis Grizzlies":
-            return 14
+            return [14,1610612763]
         elif teamName ==  "Washington Wizards":
-            return 29
+            return [29,1610612764]
         elif teamName ==  "Detroit Pistons":
-            return 8
+            return [8,1610612765]
         elif teamName == "Charlotte Hornets":
-            return 3
+            return [3,1610612766]
 
