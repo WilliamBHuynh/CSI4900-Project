@@ -8,7 +8,8 @@
       <button class="btn" (click)="goBackDay()">
         <i class="fa fa-arrow-circle-left fa-2x arrow"></i>
       </button>
-    <label class="date">Today</label>
+    <label class="date">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1])
+      + " " + this.today.toISOString().split('T', 1)[0].split("-")[2]}}</label>
     <button class="btn" (click)="goForwardDay()">
       <i class="fa fa-arrow-circle-right fa-2x arrow"></i>
     </button>
