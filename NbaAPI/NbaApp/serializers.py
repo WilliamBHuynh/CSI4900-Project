@@ -8,9 +8,11 @@ class GameSerializer(serializers.ModelSerializer):
         model = Games
         fields = ('GameId',
                   'HomeTeamName',
-                  'VisitTeamName',
+                  'AwayTeamName',
                   'HomeTeamPts',
-                  'VisitTeamPts')
+                   'AwayTeamPts',
+                  'Date')
+
 
 class PredSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,3 +54,4 @@ class PredSerializer(serializers.ModelSerializer):
                   'ELO2',
                   'DEF2',
                   'OUTCOME')
+

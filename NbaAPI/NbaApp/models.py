@@ -3,10 +3,12 @@ from django.db import models
 
 class Games(models.Model):
     GameId = models.AutoField(primary_key=True)
+    Date = models.DateField()
     HomeTeamName = models.CharField(max_length=100)
-    VisitTeamName = models.CharField(max_length=100)
+    AwayTeamName = models.CharField(max_length=100)
     HomeTeamPts = models.IntegerField(default=0)
-    VisitTeamPts = models.IntegerField(default=0)
+    AwayTeamPts = models.IntegerField(default=0)
+
 
 class Predictions(models.Model):
     team = models.IntegerField(default=0)
@@ -46,3 +48,4 @@ class Predictions(models.Model):
     ELO2 = models.DecimalField(max_digits=12, decimal_places=5)
     DEF2 = models.DecimalField(max_digits=12, decimal_places=5)
     OUTCOME = models.CharField(max_length=100)
+

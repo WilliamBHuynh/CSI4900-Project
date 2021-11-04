@@ -5,7 +5,14 @@
     </h1>
   </div>
   <div class="pb-3">
-    <label class="date">Today</label>
+      <button class="btn" (click)="goBackDay()">
+        <i class="fa fa-arrow-circle-left fa-2x arrow"></i>
+      </button>
+    <label class="date">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1])
+      + " " + this.today.toISOString().split('T', 1)[0].split("-")[2]}}</label>
+    <button class="btn" (click)="goForwardDay()">
+      <i class="fa fa-arrow-circle-right fa-2x arrow"></i>
+    </button>
   </div>
   <div *ngIf="entries.length > 0">
     <app-schedule-element *ngFor="let entry of entries" [entry]="entry"></app-schedule-element>

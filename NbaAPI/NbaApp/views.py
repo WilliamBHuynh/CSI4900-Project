@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
+from basketball_reference_scraper.seasons import get_schedule
 
 from basketball_reference_scraper.seasons import get_schedule
 from basketball_reference_scraper.teams import get_roster_stats
@@ -51,6 +51,7 @@ def scheduleApi(request, scheduleId=0):
     if request.method == 'GET':
         data = get_schedule(2022, playoffs=False)
         return JsonResponse(data.to_json(date_format='iso'), safe=False)
+
 
 
 @csrf_exempt
@@ -206,4 +207,5 @@ def normalizedName(teamName):
             return [8,1610612765]
         elif teamName == "Charlotte Hornets":
             return [3,1610612766]
+
 
