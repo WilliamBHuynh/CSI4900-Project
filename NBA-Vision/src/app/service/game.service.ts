@@ -17,4 +17,9 @@ export class GameService {
   getSchedule(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/schedule/');
   }
+
+  getPrediction(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/prediction/');
+  }
+
 }
