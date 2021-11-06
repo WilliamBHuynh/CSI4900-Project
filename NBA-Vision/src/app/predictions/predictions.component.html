@@ -4,8 +4,104 @@
         Predictions
       </h1>
     </div>
-      <div><label id="outcome" #outcome> </label></div>
-      <button (click)="getPrediction()">Predict</button>
+      <div>
+        <label id="outcome" > {{title}}</label>
+      </div>
+
+      <button (click)="nextGame()">Next</button>
+
+        <table border="1">
+          <tr>
+            <th></th>
+            <th>{{team1}}</th>
+            <th>{{team2}}</th>
+          </tr>
+          <tr>
+            <td>FGM</td>
+            <td>{{FGM}}</td>
+            <td>{{FGM2}}</td>
+          </tr>
+          <tr>
+            <td>FGA</td>
+            <td>{{FGA}}</td>
+            <td>{{FGA2}}</td>
+          </tr>
+          <tr>
+            <td>TPM</td>
+            <td>{{TPM}}</td>
+            <td>{{TPM2}}</td>
+          </tr>
+          <tr>
+            <td>TPA</td>
+            <td>{{TPA}}</td>
+            <td>{{TPA2}}</td>
+          </tr>
+          <tr>
+            <td>FTM</td>
+            <td>{{FTM}}</td>
+            <td>{{FTM2}}</td>
+          </tr>
+          <tr>
+            <td>FTA</td>
+            <td>{{FTA}}</td>
+            <td>{{FTA2}}</td>
+          </tr>
+          <tr>
+            <td>OR</td>
+            <td>{{OR}}</td>
+            <td>{{OR2}}</td>
+          </tr>
+          <tr>
+            <td>DR</td>
+            <td>{{DR}}</td>
+            <td>{{DR2}}</td>
+          </tr>
+          <tr>
+            <td>AST</td>
+            <td>{{AST}}</td>
+            <td>{{AST2}}</td>
+          </tr>
+          <tr>
+            <td>STL</td>
+            <td>{{STL}}</td>
+            <td>{{STL2}}</td>
+          </tr>
+          <tr>
+            <td>BLK</td>
+            <td>{{BLK}}</td>
+            <td>{{BLK2}}</td>
+          </tr>
+          <tr>
+            <td>TO</td>
+            <td>{{TO}}</td>
+            <td>{{TO2}}</td>
+          </tr>
+          <tr>
+            <td>PF</td>
+            <td>{{PF}}</td>
+            <td>{{PF2}}</td>
+          </tr>
+          <tr>
+            <td>LOC</td>
+            <td>{{LOC}}</td>
+            <td>{{LOC2}}</td>
+          </tr>
+          <tr>
+            <td>ELO</td>
+            <td>{{ELO}}</td>
+            <td>{{ELO2}}</td>
+          </tr>
+          <tr>
+            <td>DEF</td>
+            <td>{{DEF}}</td>
+            <td>{{DEF2}}</td>
+          </tr>
+          <tr>
+            <td>OUTCOME</td>
+            <td>{{Outcome}}</td>
+          </tr>
+        </table>
+
 
   </div>
   
