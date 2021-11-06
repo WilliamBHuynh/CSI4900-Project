@@ -62,12 +62,6 @@ export class PredictionsComponent implements OnInit {
 
 
 
-
-  constructor(private service: GameService) {
-    
-   }
-
-
   ngOnInit(): void {
 
     this.getPredictions();
