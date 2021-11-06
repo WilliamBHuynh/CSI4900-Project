@@ -17,6 +17,7 @@ from pathlib import Path
 
 
 
+
 import json
 
 
@@ -78,16 +79,12 @@ def predictionApi(request, scheduleId=0):
         print("test")
 
 
-
-
-path = os.path.dirname(os.path.dirname(os.getcwd()))
-path = path+"/CSI4900-Project/NBA-Vision/src/assets/ML"
-
 def getStats(team1,team2):
 
     path = os.path.dirname(os.path.dirname(os.getcwd()))
     path = path+"/CSI4900-Project/NBA-Vision/src/assets/ML"
     template = Path(path+'/template.csv')
+
     team1ids=normalizedName(team1)
     team2ids=normalizedName(team2)
 
@@ -98,12 +95,14 @@ def getStats(team1,team2):
     team2Stats = teamdashboardbyteamperformance.TeamDashboardByTeamPerformance(team2ids[1],per_mode_detailed='PerGame')
     team2Stats = team2Stats.overall_team_dashboard.get_data_frame()
     team2Stats.reset_index(drop=True, inplace=True)
+
    
     eloAndDef1 = getElo(team1)
 
     eloAndDef2 = getElo(team2)
 
     combinedStats = pd.read_csv(template)
+
     combinedStats.at[0,'team'] = team1ids[0]
     combinedStats.at[0,'FGM'] = team1Stats.at[0,'FGM']
     combinedStats.at[0,'FGA'] = team1Stats.at[0,'FGA']
@@ -142,6 +141,7 @@ def getStats(team1,team2):
     combinedStats.at[0,'DEF2'] = float(eloAndDef2[1])/(team2Stats.at[0,'FGA']-team2Stats.at[0,'OREB'] + team2Stats.at[0,'TOV'] + (0.4*team2Stats.at[0,'FTA']))
 
 
+
     combinedStats.assign(outcome="")
     
     combinedStats.at[0,"OUTCOME"]=predict(combinedStats)
@@ -156,6 +156,7 @@ def predict (combinedStats):
         Pickled_LR_Model = pickle.load(file)
 
     return Pickled_LR_Model.predict(combinedStats)[0]
+
 
 
 URLelo = "https://projects.fivethirtyeight.com/2022-nba-predictions/"

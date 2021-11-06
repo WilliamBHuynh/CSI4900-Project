@@ -7,7 +7,6 @@ import { DOCUMENT } from '@angular/common';
 import { ScheduleEntry } from '../schedule/schedule-entry';
 
 
-
 @Component({
   selector: 'app-predictions',
   templateUrl: './predictions.component.html',
@@ -63,11 +62,15 @@ export class PredictionsComponent implements OnInit {
 
 
 
+
+  constructor(private service: GameService) {
+    
+   }
+
+
   ngOnInit(): void {
 
     this.getPredictions();
-
-    
 
   }
 
@@ -225,5 +228,11 @@ export class PredictionsComponent implements OnInit {
         return "";
     }
   }
+
+
+  getPrediction(){
+    this.service.getPrediction().subscribe(prediction => console.log(prediction))
+  }
+
 
 }
