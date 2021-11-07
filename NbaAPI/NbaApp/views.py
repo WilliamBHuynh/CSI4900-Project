@@ -10,6 +10,12 @@ import pandas as pd
 import os
 import pickle
 from datetime import datetime;
+from bs4 import BeautifulSoup
+import requests
+from pathlib import Path
+
+
+
 
 
 import json
@@ -74,8 +80,11 @@ def predictionApi(request, scheduleId=0):
 
 
 def getStats(team1,team2):
-    #path = os.path.dirname(os.path.dirname(os.getcwd()))
-    #path= path+r"\NBA-Vision\src\assets\ML"
+
+    path = os.path.dirname(os.path.dirname(os.getcwd()))
+    path = path+"/CSI4900-Project/NBA-Vision/src/assets/ML"
+    template = Path(path+'/template.csv')
+
     team1ids=normalizedName(team1)
     team2ids=normalizedName(team2)
 
@@ -87,13 +96,13 @@ def getStats(team1,team2):
     team2Stats = team2Stats.overall_team_dashboard.get_data_frame()
     team2Stats.reset_index(drop=True, inplace=True)
 
-    #leagueStats = pd.read_excel(r"C:\Users\Jugra\Desktop\School\Year 4\Semester 2\Honours Project\CSI4900-Project\CSI4900-Project\NBA-Vision\src\assets\ML\teamStatsFilled.xlsx")
-    #leagueStats = leagueStats.drop(leagueStats.columns[0],1)
-    #team1Stats = leagueStats.loc[(leagueStats['team'] == team1 )]
-    #team1Stats=team1Stats.reset_index()
-    #team2Stats = leagueStats.loc[(leagueStats['team'] == team2 )]
-    #team2Stats=team2Stats.reset_index()
-    combinedStats = pd.read_csv(r"C:\Users\Jugra\Desktop\School\Year 4\Semester 2\Honours Project\CSI4900-Project\CSI4900-Project\NBA-Vision\src\assets\ML\template.csv")
+   
+    eloAndDef1 = getElo(team1)
+
+    eloAndDef2 = getElo(team2)
+
+    combinedStats = pd.read_csv(template)
+
     combinedStats.at[0,'team'] = team1ids[0]
     combinedStats.at[0,'FGM'] = team1Stats.at[0,'FGM']
     combinedStats.at[0,'FGA'] = team1Stats.at[0,'FGA']
@@ -110,8 +119,8 @@ def getStats(team1,team2):
     combinedStats.at[0,'PF'] = team1Stats.at[0,'PF']
     combinedStats.at[0,'LOC'] = 1
     combinedStats.at[0,'OPP'] = team2ids[0]
-    combinedStats.at[0,'ELO'] = 1500
-    combinedStats.at[0,'DEF'] = team1Stats.at[0,'FGA'] - team1Stats.at[0,'OREB'] + team1Stats.at[0,'TOV']
+    combinedStats.at[0,'ELO'] = eloAndDef1[0]
+    combinedStats.at[0,'DEF'] = float(eloAndDef1[1])/(team1Stats.at[0,'FGA']-team1Stats.at[0,'OREB'] + team1Stats.at[0,'TOV'] + (0.4*team1Stats.at[0,'FTA']))
     combinedStats.at[0,'team2'] = team2ids[0]
     combinedStats.at[0,'FGM2'] = team2Stats.at[0,'FGM']
     combinedStats.at[0,'FGA2'] = team2Stats.at[0,'FGA']
@@ -128,8 +137,9 @@ def getStats(team1,team2):
     combinedStats.at[0,'PF2'] = team2Stats.at[0,'PF']
     combinedStats.at[0,'LOC2'] = 0
     combinedStats.at[0,'OPP2'] = team1ids[0]
-    combinedStats.at[0,'ELO2'] = 1500
-    combinedStats.at[0,'DEF2'] = 1
+    combinedStats.at[0,'ELO2'] = eloAndDef2[0]
+    combinedStats.at[0,'DEF2'] = float(eloAndDef2[1])/(team2Stats.at[0,'FGA']-team2Stats.at[0,'OREB'] + team2Stats.at[0,'TOV'] + (0.4*team2Stats.at[0,'FTA']))
+
 
 
     combinedStats.assign(outcome="")
@@ -139,14 +149,144 @@ def getStats(team1,team2):
     return combinedStats
 
 def predict (combinedStats):
-    path = r"C:\Users\Jugra\Desktop\School\Year 4\Semester 2\Honours Project\CSI4900-Project\CSI4900-Project\NBA-Vision\src\assets\ML\model.pkl"
-    with open(path, 'rb') as file: 
+    path = os.path.dirname(os.path.dirname(os.getcwd()))
+    path = path+"/CSI4900-Project/NBA-Vision/src/assets/ML"
+    model = Path( path +'/model.pkl')
+    with open(model, 'rb') as file: 
         Pickled_LR_Model = pickle.load(file)
 
     return Pickled_LR_Model.predict(combinedStats)[0]
 
+
+
+URLelo = "https://projects.fivethirtyeight.com/2022-nba-predictions/"
+pageElo = requests.get(URLelo)
+soupElo = BeautifulSoup(pageElo.content, "html.parser")
+
+URLdef = "https://www.teamrankings.com/nba/stat/opponent-points-per-game"
+pageDef = requests.get(URLdef)
+soupDef = BeautifulSoup(pageDef.content, "html.parser")
+
+rows = soupDef.find_all("tr")
+
+oppPointsList = []
+for tr in rows[1:]:
+    tds = tr.find_all('td')
+    oppPointsList.append((tds[1].text))
+    oppPointsList.append((tds[2].text))
+
+print(oppPointsList)
+
+
+
+def getElo(teamName):
+
+    tName=""
+    dName=""
+
+    if teamName =="Atlanta Hawks":
+        tName="ATL"
+        dName='Atlanta'
+    elif teamName =="Boston Celtics":
+        tName="BOS"
+        dName='Boston'
+    elif teamName =="Cleveland Cavaliers":
+        Name="CLE"
+        dName='Cleveland'
+    elif teamName =="New Orleans Pelicans":
+        tName="NO"
+        dName='New Orleans'
+    elif teamName =="Chicago Bulls":
+        tName="CHI"
+        dName='Chicago'
+    elif teamName =="Dallas Mavericks":
+        tName=" DAL"
+        dName='Dallas'
+    elif teamName == "Denver Nuggets":
+        tName="DEN"
+        dName='Denver'
+    elif teamName == "Golden State Warriors":
+        tName="GS"
+        dName='Golden State'
+    elif teamName == "Houston Rockets":
+        tName="HOU"
+        dName='Houston'
+    elif teamName == "Los Angeles Clippers":
+        tName="LAC"
+        dName='LA Clippers"'
+    elif teamName == "Los Angeles Lakers":
+        tName="LAL"
+        dName='LA Lakers'
+    elif teamName == "Miami Heat":
+        tName="MIA"
+        dName='Miami'
+    elif teamName == "Milwaukee Bucks":
+        tName="MIL"
+        dName='Milwaukee'
+    elif teamName ==  "Minnesota Timberwolves":
+        tName="MIN"
+        dName='Minnesota'
+    elif teamName ==  "Brooklyn Nets":
+        tName="BKN"
+        dName='Brooklyn'
+    elif teamName ==  "New York Knicks":
+        tName="NY"
+        dName='New York'
+    elif teamName ==  "Orlando Magic":
+        tName="ORL"
+        dName='Orlando'
+    elif teamName ==  "Indiana Pacers":
+        tName="IND"
+        dName='Indiana'
+    elif teamName ==  "Philadelphia 76ers":
+        tName="PHI"
+        dName='Philadelphia'
+    elif teamName ==  "Phoenix Suns":
+        tName="PHX"
+        dName='Phoenix'
+    elif teamName ==  "Portland Trail Blazers":
+        tName="POR"
+        dName='Portland'
+    elif teamName ==  "Sacramento Kings":
+        tName="SAC"
+        dName='Sacramento'
+    elif teamName ==  "San Antonio Spurs":
+        tName="SA"
+        dName='San Antonio'
+    elif teamName ==  "Oklahoma City Thunder":
+        tName="OKC"
+        dName='Okla City'
+    elif teamName ==  "Toronto Raptors":
+        tName="TOR"
+        dName='Toronto'
+    elif teamName ==  "Utah Jazz":
+        tName="UTA"
+        dName='Utah'
+    elif teamName ==  "Memphis Grizzlies":
+        tName="MEM"
+        dName='Memphis'
+    elif teamName ==  "Washington Wizards":
+        tName="WSH"
+        dName='Washington'
+    elif teamName ==  "Detroit Pistons":
+        tName="DET"
+        dName='Detroit'
+    elif teamName == "Charlotte Hornets":
+        tName="CHA"
+        dName='Charlotte'
+
+
+    opponentPoints=oppPointsList[oppPointsList.index(dName)+1]
+    team = 'tr[data-team=' + tName +"]"
+    items=soupElo.select(team)
+    elo = items[0].find("td",class_="num elo carmelo-current").string
+    return [int(elo),opponentPoints]
+
+
+
+
+
 def normalizedName(teamName):
-    
         if teamName =="Atlanta Hawks":
             return [0,1610612737]
         elif teamName =="Boston Celtics":
@@ -158,7 +298,7 @@ def normalizedName(teamName):
         elif teamName =="Chicago Bulls":
             return [4,1610612741]
         elif teamName =="Dallas Mavericks":
-            return [26,1610612742]
+            return [6,1610612742]
         elif teamName == "Denver Nuggets":
             return [7,1610612743]
         elif teamName == "Golden State Warriors":
