@@ -1,9 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from basketball_reference_scraper.seasons import get_schedule
-
-from basketball_reference_scraper.seasons import get_schedule
+from basketball_reference_scraper.seasons import get_schedule, get_standings
 from basketball_reference_scraper.teams import get_roster_stats
 from nba_api.stats.endpoints import teamdashboardbyteamperformance
 import pandas as pd
@@ -47,7 +45,16 @@ def gameApi(request, gameId=0):
 
 
 @csrf_exempt
-def scheduleApi(request, scheduleId=0):
+def standingApi(request):
+    if request.method == 'GET':
+        data = get_standings()
+        data["EASTERN_CONF"]['DIV'] = 'east'
+        data["WESTERN_CONF"]['DIV'] = 'west'
+        res = pd.concat([data["EASTERN_CONF"], data["WESTERN_CONF"]], ignore_index=True)
+        return JsonResponse(res.to_json(), safe=False)
+
+@csrf_exempt
+def scheduleApi(request):
     if request.method == 'GET':
         data = get_schedule(2022, playoffs=False)
         return JsonResponse(data.to_json(date_format='iso'), safe=False)
