@@ -18,6 +18,10 @@ export class GameService {
     return this.http.get<any[]>(this.APIUrl + '/schedule/');
   }
 
+  getStanding(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/standing/');
+  }
+
   getPrediction(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/prediction/');
   }

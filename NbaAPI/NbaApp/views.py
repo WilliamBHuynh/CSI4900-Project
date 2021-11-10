@@ -2,25 +2,16 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from basketball_reference_scraper.seasons import get_schedule, get_standings
-from basketball_reference_scraper.teams import get_roster_stats
 from nba_api.stats.endpoints import teamdashboardbyteamperformance
+from pathlib import Path
+from NbaApp.models import Games
+from datetime import datetime;
+from bs4 import BeautifulSoup
+from NbaApp.serializers import GameSerializer
 import pandas as pd
 import os
 import pickle
-from datetime import datetime;
-from bs4 import BeautifulSoup
 import requests
-from pathlib import Path
-
-
-
-
-
-import json
-
-
-from NbaApp.models import Games
-from NbaApp.serializers import GameSerializer
 
 
 @csrf_exempt
@@ -57,14 +48,15 @@ def standingApi(request):
         data["EASTERN_CONF"]['DIV'] = 'east'
         data["WESTERN_CONF"]['DIV'] = 'west'
         res = pd.concat([data["EASTERN_CONF"], data["WESTERN_CONF"]], ignore_index=True)
+        res = res.rename(columns={"W/L%": "WL", "PS/G": "PSG", "PA/G": "PAG"})
         return JsonResponse(res.to_json(), safe=False)
+
 
 @csrf_exempt
 def scheduleApi(request):
     if request.method == 'GET':
         data = get_schedule(2022, playoffs=False)
         return JsonResponse(data.to_json(date_format='iso'), safe=False)
-
 
 
 @csrf_exempt
@@ -155,6 +147,7 @@ def getStats(team1,team2):
 
     return combinedStats
 
+
 def predict (combinedStats):
     path = os.path.dirname(os.path.dirname(os.getcwd()))
     path = path+"/CSI4900-Project/NBA-Vision/src/assets/ML"
@@ -183,7 +176,6 @@ for tr in rows[1:]:
     oppPointsList.append((tds[2].text))
 
 print(oppPointsList)
-
 
 
 def getElo(teamName):
@@ -288,9 +280,6 @@ def getElo(teamName):
     items=soupElo.select(team)
     elo = items[0].find("td",class_="num elo carmelo-current").string
     return [int(elo),opponentPoints]
-
-
-
 
 
 def normalizedName(teamName):
