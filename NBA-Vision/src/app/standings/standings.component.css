@@ -1,1 +1,18 @@
+.tableLogo {
+  width: 30px;
+  padding-right: 7px;
+}
 
+.btn:hover {
+  background-color: var(--highlight-colour);
+  color: black;
+}
+
+.btn:focus {
+  background-color: var(--highlight-colour);
+  color: black;
+}
+
+.table-hover tr:hover  {
+  color: var(--highlight-colour);
+}
