@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild, ElementRef} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { HttpErrorResponse } from '@angular/common/http';
 import {GameService} from "../service/game.service";
 import { Observable } from 'rxjs';
 import { DOCUMENT } from '@angular/common'; 
 import { ScheduleEntry } from '../schedule/schedule-entry';
+import { HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-predictions',
   templateUrl: './predictions.component.html',
   styleUrls: ['./predictions.component.css']
+  
 })
 export class PredictionsComponent implements OnInit {
   private predData: any;
@@ -52,14 +56,18 @@ export class PredictionsComponent implements OnInit {
   ELO2 = "";
   DEF2 = "";
   Outcome ="";
+  done = 0;
+
+  fontSize = 20;
+  @ViewChild('predTbl', { static: true }) predTbl: ElementRef;
+  
   
   i=0;
   arrTeams: string [];
 
-  constructor(private service: GameService) {
+  constructor(private service: GameService,private router: Router) {
     
    }
-
 
 
   ngOnInit(): void {
@@ -68,32 +76,56 @@ export class PredictionsComponent implements OnInit {
 
   }
 
+  @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
+
+    if (e.keyCode == 39) {
+      this.nextGame('next')
+    }
+    else if (e.ctrlKey && e.keyCode == 37){
+      this.router.navigate(['/']);
+    }
+    else if (e.keyCode == 37){
+      this.nextGame('back')
+    }
+    else if (e.keyCode == 187){
+      this.changeFont('+')
+    }
+    else if (e.keyCode == 189){
+      this.changeFont('-')
+    }
+  }
+
+
+  changeFont(operator:any) {
+    operator === '+' ? this.fontSize+=5 : this.fontSize-=5;
+    (this.predTbl.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
+    
+  }
+
 
   getPredictions(){
-
+    console.log(this.done)
+    if (this.done==0){
     this.service.getPrediction().subscribe(
       (data:any) => {
         this.predData = JSON.parse(data)
-        //this.arrTeams = data as string [];	 // FILL THE ARRAY WITH DATA.
-        console.log(this.predData);
         this.getGame(this.i)
+        this.done =1;
+        this.title="Loaded";
+        (this.predTbl.nativeElement as HTMLParagraphElement).style.visibility = `visible`;
 
-        this.title="Loaded"
       },
       (err: HttpErrorResponse) => {
         console.log (err.message);
       }
 
     );
-
+    }else if (this.done==1){
+      this.getGame(this.i)
+    }
+    
     this.title="Loading..."
 
-    //this.service.getPrediction().subscribe((res: any) => {
-      //this.data = JSON.parse(res);
-   // });
-
-    //console.log(this.data)
-    //this.service.getPrediction().subscribe(prediction => console.log(prediction))
   }
   
 
@@ -145,13 +177,22 @@ export class PredictionsComponent implements OnInit {
 
   }
 
-  nextGame(){
-    console.log(this.i)
-    this.i += 1
-    if (this.i == length){
-      this.i=0;
-    } 
+  nextGame(increment:string){
+
+    
     length = Object.keys(this.predData.team).length
+
+    if (increment == "next"){
+      this.i += 1
+      if (this.i == length){
+        this.i=0;
+      } 
+    }else if (increment=="back"){
+      this.i -= 1
+      if (this.i == -1){
+        this.i=length-1;
+      } 
+    }
 
     this.getGame(this.i)
   }
@@ -222,11 +263,5 @@ export class PredictionsComponent implements OnInit {
         return "";
     }
   }
-
-
-  getPrediction(){
-    this.service.getPrediction().subscribe(prediction => console.log(prediction))
-  }
-
 
 }
