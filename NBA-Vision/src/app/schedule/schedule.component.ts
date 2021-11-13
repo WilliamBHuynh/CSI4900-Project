@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ScheduleEntry} from "./schedule-entry";
 import {GameService} from "../service/game.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.css']
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, OnDestroy {
   private data: any;
+  subscription: Subscription;
   today = new Date();
   entries: ScheduleEntry[] = [];
   constructor(private service: GameService) { }
@@ -17,8 +19,12 @@ export class ScheduleComponent implements OnInit {
     this.refreshSchedule();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   refreshSchedule(): void {
-    this.service.getSchedule().subscribe((res: any) => {
+    this.subscription = this.service.getSchedule().subscribe((res: any) => {
       this.data = JSON.parse(res);
       this.renderSchedule();
     });
@@ -48,7 +54,7 @@ export class ScheduleComponent implements OnInit {
     this.renderSchedule();
   }
 
-  addEntry(entry: ScheduleEntry) {
+  addEntry(entry: ScheduleEntry): void {
     this.entries.push(entry);
   }
 

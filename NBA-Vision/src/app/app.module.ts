@@ -10,6 +10,7 @@ import { RouterModule } from "@angular/router";
 import { GameService } from "./service/game.service";
 import { HttpClientModule } from '@angular/common/http';
 import { PredictionsComponent } from './predictions/predictions.component';
+import { StandingsComponent } from './standings/standings.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PredictionsComponent } from './predictions/predictions.component';
     ScheduleElementComponent,
     HomeComponent,
     PredictionsComponent,
+    StandingsComponent,
   ],
   imports: [
     HttpClientModule,
