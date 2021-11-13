@@ -1,5 +1,6 @@
 
-table {
+#predTbl {
     color: white;
-    font-size: x-large;
+    font-size: 20px;
+    visibility: hidden;
   }

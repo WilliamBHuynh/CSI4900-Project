@@ -11,7 +11,17 @@ from NbaApp.serializers import GameSerializer
 import pandas as pd
 import os
 import pickle
+from datetime import datetime;
+from bs4 import BeautifulSoup
 import requests
+from pathlib import Path
+
+import json
+
+
+from NbaApp.models import Games
+from NbaApp.serializers import GameSerializer
+
 
 
 @csrf_exempt
@@ -175,7 +185,6 @@ for tr in rows[1:]:
     oppPointsList.append((tds[1].text))
     oppPointsList.append((tds[2].text))
 
-print(oppPointsList)
 
 
 def getElo(teamName):
@@ -190,7 +199,7 @@ def getElo(teamName):
         tName="BOS"
         dName='Boston'
     elif teamName =="Cleveland Cavaliers":
-        Name="CLE"
+        tName="CLE"
         dName='Cleveland'
     elif teamName =="New Orleans Pelicans":
         tName="NO"
@@ -212,7 +221,7 @@ def getElo(teamName):
         dName='Houston'
     elif teamName == "Los Angeles Clippers":
         tName="LAC"
-        dName='LA Clippers"'
+        dName='LA Clippers'
     elif teamName == "Los Angeles Lakers":
         tName="LAL"
         dName='LA Lakers'

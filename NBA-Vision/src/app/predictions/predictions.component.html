@@ -9,9 +9,14 @@
         <label id="outcome" > {{title}}</label>
       </div>
 
-      <button (click)="nextGame()">Next</button>
+      <button (click)="nextGame('back')" >Back</button> 
+      <button (click)="nextGame('next')" >Next</button> 
+      <p></p>
+      <button (click)="changeFont('+')">+</button>
+      <button (click)="changeFont('-')">-</button>
 
-        <table border="1">
+        
+        <table border="1" id="predTbl" #predTbl>
           <tr>
             <th></th>
             <th>{{team1}}</th>
