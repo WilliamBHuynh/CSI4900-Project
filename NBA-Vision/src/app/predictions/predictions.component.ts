@@ -57,13 +57,10 @@ export class PredictionsComponent implements OnInit {
   DEF2 = "";
   Outcome ="";
 
-  done = 0;
-
   fontSize = 20;
   @ViewChild('predTbl', { static: true }) predTbl: ElementRef;
   
   i=0;
-  arrTeams: string [];
 
   constructor(private service: GameService,private router: Router) {
     
@@ -72,57 +69,59 @@ export class PredictionsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    
     this.getPredictions();
+    
 
   }
 
 
   getGame(i:number){
 
-		this.team1 = this.unNormalizeName(+this.predData.team[i])
-        this.team2 = this.unNormalizeName(+this.predData.team2[i])
-        this.FGM  = this.predData.FGM[i] 
-        this.FGA  = this.predData.FGA[i] 
-        this.TPM  = this.predData.TPM[i] 
-        this.TPA  = this.predData.TPA[i]
-        this.FTM  = this.predData.FTM[i]
-        this.FTA  = this.predData.FTA[i] 
-        this.OR  = this.predData.OR[i] 
-        this.DR  = this.predData.DR[i] 
-        this.AST  = this.predData.AS[i]
-        this.STL = this.predData.STL[i]
-        this.BLK  = this.predData.BLK[i] 
-        this.TO  = this.predData.TO[i] 
-        this.PF  = this.predData.PF[i] 
-        this.LOC  = this.predData.LOC[i] 
-        this.ELO  = this.predData.ELO[i] 
-        this.DEF = (this.predData.DEF[i]*100).toString()
+		this.team1 = this.unNormalizeName(+this.service.predData.team[i])
+        this.team2 = this.unNormalizeName(+this.service.predData.team2[i])
+        this.FGM  = this.service.predData.FGM[i] 
+        this.FGA  = this.service.predData.FGA[i] 
+        this.TPM  = this.service.predData.TPM[i] 
+        this.TPA  = this.service.predData.TPA[i]
+        this.FTM  = this.service.predData.FTM[i]
+        this.FTA  = this.service.predData.FTA[i] 
+        this.OR  = this.service.predData.OR[i] 
+        this.DR  = this.service.predData.DR[i] 
+        this.AST  = this.service.predData.AS[i]
+        this.STL = this.service.predData.STL[i]
+        this.BLK  = this.service.predData.BLK[i] 
+        this.TO  = this.service.predData.TO[i] 
+        this.PF  = this.service.predData.PF[i] 
+        this.LOC  = this.service.predData.LOC[i] 
+        this.ELO  = this.service.predData.ELO[i] 
+        this.DEF = (this.service.predData.DEF[i]*100).toString()
 
-        this.FGM2  = this.predData.FGM2[i] 
-        this.FGA2  = this.predData.FGA2[i] 
-        this.TPM2  = this.predData.TPM2[i] 
-        this.TPA2  = this.predData.TPA2[i]
-        this.FTM2  = this.predData.FTM2[i]
-        this.FTA2  = this.predData.FTA2[i] 
-        this.OR2  = this.predData.OR2[i] 
-        this.DR2  = this.predData.DR2[i] 
-        this.AST2  = this.predData.AS2[i]
-        this.STL2 = this.predData.STL2[i]
-        this.BLK2  = this.predData.BLK2[i] 
-        this.TO2  = this.predData.TO2[i] 
-        this.PF2  = this.predData.PF2[i] 
-        this.LOC2  = this.predData.LOC2[i] 
-        this.ELO2  = this.predData.ELO2[i] 
-        this.DEF2 = (this.predData.DEF2[i]*100).toString()
+        this.FGM2  = this.service.predData.FGM2[i] 
+        this.FGA2  = this.service.predData.FGA2[i] 
+        this.TPM2  = this.service.predData.TPM2[i] 
+        this.TPA2  = this.service.predData.TPA2[i]
+        this.FTM2  = this.service.predData.FTM2[i]
+        this.FTA2  = this.service.predData.FTA2[i] 
+        this.OR2  = this.service.predData.OR2[i] 
+        this.DR2  = this.service.predData.DR2[i] 
+        this.AST2  = this.service.predData.AS2[i]
+        this.STL2 = this.service.predData.STL2[i]
+        this.BLK2  = this.service.predData.BLK2[i] 
+        this.TO2  = this.service.predData.TO2[i] 
+        this.PF2  = this.service.predData.PF2[i] 
+        this.LOC2  = this.service.predData.LOC2[i] 
+        this.ELO2  = this.service.predData.ELO2[i] 
+        this.DEF2 = (this.service.predData.DEF2[i]*100).toString()
 
-        this.Outcome = this.predData.OUTCOME[i]
+        this.Outcome = this.service.predData.OUTCOME[i]
 
         if (+this.Outcome==1){
           this.Outcome=this.team1
       }else{
         this.Outcome=this.team2
       }
-
+      
   }
 
 
@@ -221,13 +220,13 @@ export class PredictionsComponent implements OnInit {
 
 
   getPredictions(){
-    console.log(this.done)
-    if (this.done==0){
+    
+    if (this.service.predData==undefined){
+
     this.service.getPrediction().subscribe(
       (data:any) => {
-        this.predData = JSON.parse(data)
+        this.service.predData = JSON.parse(data)
         this.getGame(this.i)
-        this.done =1;
         this.title="Loaded";
         (this.predTbl.nativeElement as HTMLParagraphElement).style.visibility = `visible`;
 
@@ -237,18 +236,20 @@ export class PredictionsComponent implements OnInit {
       }
 
     );
-    }else if (this.done==1){
-      this.getGame(this.i)
+    this.title="Loading..."
+    }else {
+      this.title="Loaded";
+      this.getGame(this.i);
+      (this.predTbl.nativeElement as HTMLParagraphElement).style.visibility = `visible`;
     }
     
-    this.title="Loading..."
 
   }
   
   nextGame(increment:string){
 
     
-    length = Object.keys(this.predData.team).length
+    length = Object.keys(this.service.predData.team).length
 
     if (increment == "next"){
       this.i += 1

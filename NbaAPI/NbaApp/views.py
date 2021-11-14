@@ -14,6 +14,7 @@ import pickle
 from datetime import datetime;
 from bs4 import BeautifulSoup
 import requests
+import time
 from pathlib import Path
 
 import json
@@ -80,12 +81,12 @@ def predictionApi(request, scheduleId=0):
         for index,row in gamesToday.iterrows():
             if index > 0 :
                 predToAppend = getStats(gamesToday.at[index,"HOME"],gamesToday.at[index,"VISITOR"])
+                time.sleep(1)
                 predData=predData.append(predToAppend)
         predData.reset_index(drop=True, inplace=True)
         y = predData.to_json()
         return JsonResponse(y, safe=False)
-    if request.method == 'POST':
-        print("test")
+    
 
 
 def getStats(team1,team2):
@@ -158,16 +159,18 @@ def getStats(team1,team2):
     return combinedStats
 
 
+
+
 def predict (combinedStats):
-    path = os.path.dirname(os.path.dirname(os.getcwd()))
-    path = path+"/CSI4900-Project/NBA-Vision/src/assets/ML"
-    model = Path( path +'/model.pkl')
+
     with open(model, 'rb') as file: 
         Pickled_LR_Model = pickle.load(file)
 
     return Pickled_LR_Model.predict(combinedStats)[0]
 
-
+path = os.path.dirname(os.path.dirname(os.getcwd()))
+path = path+"/CSI4900-Project/NBA-Vision/src/assets/ML"
+model = Path( path +'/model.pkl')
 
 URLelo = "https://projects.fivethirtyeight.com/2022-nba-predictions/"
 pageElo = requests.get(URLelo)

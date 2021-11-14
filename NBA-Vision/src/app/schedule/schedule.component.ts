@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,ViewChild,ElementRef } from '@angular/core';
 import {ScheduleEntry} from "./schedule-entry";
 import {GameService} from "../service/game.service";
 import {Subscription} from "rxjs";
+import { HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -13,7 +15,16 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   today = new Date();
   entries: ScheduleEntry[] = [];
-  constructor(private service: GameService) { }
+  @ViewChild('entryContainer', { static: true }) entry: ElementRef;
+  constructor(private service: GameService,private router: Router) { }
+  fontSize = 1;
+  
+
+  changeFont(operator:any) {
+    operator === '+' ? this.fontSize+=0.25 : this.fontSize-=0.25;
+    (this.entry.nativeElement as HTMLParagraphElement).style.transform = `scale(`+this.fontSize+')';
+    
+  }
 
   ngOnInit(): void {
     this.refreshSchedule();
@@ -153,6 +164,25 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         return "was";
       default:
         return "";
+    }
+  }
+
+  @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
+
+    if (e.keyCode == 39) {
+      this.goForwardDay()
+    }
+    else if (e.ctrlKey && e.keyCode == 37){
+      this.router.navigate(['/']);
+    }
+    else if (e.keyCode == 37){
+      this.goBackDay()
+    }
+    else if (e.keyCode == 187){
+      this.changeFont('+')
+    }
+    else if (e.keyCode == 189){
+      this.changeFont('-')
     }
   }
 }

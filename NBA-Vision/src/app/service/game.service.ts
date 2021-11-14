@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 })
 export class GameService {
   readonly APIUrl = "http://127.0.0.1:8000";
+  predData :any;
 
   constructor(private http: HttpClient) { }
 
