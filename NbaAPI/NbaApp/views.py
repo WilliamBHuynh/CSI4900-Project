@@ -2,6 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from basketball_reference_scraper.seasons import get_schedule, get_standings
+from basketball_reference_scraper.box_scores import get_box_scores
 from nba_api.stats.endpoints import teamdashboardbyteamperformance
 from pathlib import Path
 from NbaApp.models import Games
@@ -69,6 +70,13 @@ def scheduleApi(request):
         data = get_schedule(2022, playoffs=False)
         return JsonResponse(data.to_json(date_format='iso'), safe=False)
 
+
+@csrf_exempt
+def boxScoreApi(request, date, team1, team2):
+    if request.method == 'GET':
+        data = get_box_scores(date, team1, team2, period='GAME', stat_type='BASIC')
+        res = pd.concat([data[team1], data[team2]], ignore_index=True)
+        return JsonResponse(res.to_json(), safe=False)
 
 @csrf_exempt
 def predictionApi(request, scheduleId=0):
