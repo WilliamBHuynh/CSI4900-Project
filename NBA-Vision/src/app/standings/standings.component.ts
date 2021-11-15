@@ -1,7 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit,ViewChild,ElementRef} from '@angular/core';
 import {GameService} from "../service/game.service";
 import {Subscription} from "rxjs";
 import {StandingEntry} from "./standing-entry";
+import { HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-standings',
@@ -14,7 +16,28 @@ export class StandingsComponent implements OnInit, OnDestroy {
   div: string = 'all';
   standingEntries: StandingEntry[] = [];
   subscription: Subscription;
-  constructor(private service: GameService) { }
+  fontSize =20;
+  fontSizeB =1;
+  @ViewChild('standings', { static: true }) standings: ElementRef;
+  @ViewChild('buttons', { static: true }) buttons: ElementRef;
+
+
+  changeFont(operator:any) {
+
+    if (operator=='+'){
+      this.fontSize+=5
+      this.fontSizeB +=.25;
+    }else{
+      this.fontSize-=5
+      this.fontSizeB -=.25;
+    }
+
+    (this.standings.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
+    (this.buttons.nativeElement as HTMLParagraphElement).style.transform = `scale(`+this.fontSizeB+')';
+    (this.buttons.nativeElement as HTMLParagraphElement).style.transformOrigin= 'bottom';
+
+  }
+  constructor(private service: GameService,private router: Router) { }
 
   ngOnInit(): void {
     this.refreshStandings();
@@ -61,5 +84,29 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   incrementRank(): void {
     this.rank++;
+  }
+
+  @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
+
+    console.log(e.keyCode)
+
+    if (e.keyCode == 69) {
+      this.clickEast()
+    }
+    else if (e.ctrlKey && e.keyCode == 37){
+      this.router.navigate(['/']);
+    }
+    else if (e.keyCode == 65){
+      this.clickAll()
+    }
+    else if (e.keyCode == 87){
+      this.clickWest()
+    }
+    else if (e.keyCode == 187){
+      this.changeFont('+')
+    }
+    else if (e.keyCode == 189){
+      this.changeFont('-')
+    }
   }
 }

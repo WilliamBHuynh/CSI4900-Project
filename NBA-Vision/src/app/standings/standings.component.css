@@ -1,1 +1,10 @@
-
+.fontChange {
+    position:absolute;
+    top:0;
+    right:0;
+    font-size :30px;
+  }
+.btn-group{
+    transform: scale(1);
+    transform-origin: 0 0;
+}
