@@ -14,13 +14,17 @@
       <i class="fa fa-arrow-circle-right fa-2x arrow"></i>
     </button>
   </div>
-  <div id="entry" #entryContainer>
-  <div *ngIf="entries.length > 0" >
-    <app-schedule-element *ngFor="let entry of entries" [entry]="entry"></app-schedule-element>
+  <ul>
+    <div id="entry" #entryContainer>
+      <div *ngIf="entries.length > 0" class="group">
+        <li class="list-group">
+          <app-schedule-element *ngFor="let entry of entries" [entry]="entry"></app-schedule-element>
+        </li>
+      </div>
+    </div>
+  </ul>
+  <div class="fontChange">
+    <button id='btnFonPlus' (click)="changeFont('+')">+</button>
+    <button id='btnFontMinus' (click)="changeFont('-')">-</button>
   </div>
-</div>
-<div class="fontChange">
-<button id='btnFonPlus' (click)="changeFont('+')">+</button>
-<button id='btnFontMinus' (click)="changeFont('-')">-</button>
-</div>
 </div>

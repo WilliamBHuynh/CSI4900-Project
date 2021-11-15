@@ -1,8 +1,9 @@
 .container {
-  border: 4px solid var(--highlight-colour);
+  border: 4px solid #343A40;
   margin-bottom: 30px;
   padding-bottom: 10px;
   width: 50%;
+  background-color: var(--main-bg-colour);
 }
 .container:hover {
   background-color: var(--highlight-colour);
