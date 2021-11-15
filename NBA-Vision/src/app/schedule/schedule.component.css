@@ -11,3 +11,14 @@
 .btn:hover {
   background-color: var(--highlight-colour);
 }
+#entry{
+  transform: scale(1);
+  transform-origin: top;
+}
+
+.fontChange {
+  position:absolute;
+  top:0;
+  right:0;
+  font-size :30px;
+}

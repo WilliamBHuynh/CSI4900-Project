@@ -1,5 +1,13 @@
 
-table {
+#predTbl {
     color: white;
-    font-size: x-large;
+    font-size: 20px;
+    visibility: hidden;
+  }
+
+  .fontChange {
+    position:absolute;
+    top:0;
+    right:0;
+    font-size :30px;
   }

@@ -22,3 +22,11 @@
 .nav-elem label:hover {
   color: var(--highlight-colour);
 }
+
+.fontChange {
+  position:absolute;
+  top:0;
+  right:0;
+  font-size :30px;
+}
+
