@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ScheduleEntry} from "./schedule-entry";
 import {GameService} from "../service/game.service";
 import {Subscription} from "rxjs";
-import Utils from "../utils.";
 
 @Component({
   selector: 'app-schedule',
@@ -35,8 +34,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     let convertedCurrentDate = this.today.toISOString().split('T', 1)[0];
     for (let i = 0; i < Object.keys(this.data.DATE).length; i++) {
       if (this.data.DATE[i].split('T', 1)[0] == convertedCurrentDate) {
-        const newEntry: ScheduleEntry = {date: this.data.DATE[i], homeTeamName: Utils.convertTeamName(this.data.HOME[i]),
-          awayTeamName: Utils.convertTeamName(this.data.VISITOR[i]), live: this.data.HOME_PTS[i] != null,
+        const newEntry: ScheduleEntry = {date: this.data.DATE[i], homeTeamName: this.data.HOME[i],
+          awayTeamName: this.data.VISITOR[i], live: this.data.HOME_PTS[i] != null,
           homeTeamScore: this.data.HOME_PTS[i], awayTeamScore: this.data.VISITOR_PTS[i]};
         this.addEntry(newEntry);
       }
