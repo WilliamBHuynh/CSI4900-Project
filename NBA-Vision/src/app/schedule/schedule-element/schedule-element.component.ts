@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ScheduleEntry} from "../schedule-entry";
 import Utils from "../../utils.";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {BoxscoreComponent} from "../boxscore/boxscore.component";
 
 @Component({
   selector: 'app-schedule-element',
@@ -11,7 +13,7 @@ export class ScheduleElementComponent implements OnInit {
   @Input() entry: ScheduleEntry;
   teamHomeAbv: string;
   teamAwayAbv: string;
-  constructor() { }
+  constructor(public modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.teamHomeAbv = Utils.convertTeamName(this.entry.homeTeamName);
@@ -25,4 +27,13 @@ export class ScheduleElementComponent implements OnInit {
     return teams + " " + score;
   }
 
+  open() {
+    const modalRef = this.modalService.open(BoxscoreComponent);
+    let dateEntry = this.entry.date +'';
+    const teamHomeAbvUpper = this.teamHomeAbv.toUpperCase();
+    const teamAwayAbvUpper = this.teamAwayAbv.toUpperCase();
+    modalRef.componentInstance.params = dateEntry.substring(0, 10) + '/' + teamHomeAbvUpper + '/' + teamAwayAbvUpper + '/';
+    modalRef.componentInstance.homeTeamAbv = teamHomeAbvUpper;
+    modalRef.componentInstance.awayTeamAbv = teamAwayAbvUpper;
+  }
 }

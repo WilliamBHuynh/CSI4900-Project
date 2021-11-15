@@ -75,7 +75,10 @@ def scheduleApi(request):
 def boxScoreApi(request, date, team1, team2):
     if request.method == 'GET':
         data = get_box_scores(date, team1, team2, period='GAME', stat_type='BASIC')
+        data[team1]['TEAM'] = team1
+        data[team2]['TEAM'] = team2
         res = pd.concat([data[team1], data[team2]], ignore_index=True)
+        res = res.rename(columns={"FG%": "FGP", "3P": "threeP", "3PA": "threePA", "3P%": "threePP", "+/-": "plusMinus"})
         return JsonResponse(res.to_json(), safe=False)
 
 @csrf_exempt

@@ -1,0 +1,100 @@
+<div style="width: 200%">
+  <div class="modal-header">
+    <h4 class="modal-title">Box score</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <ng-container *ngIf="this.params != ''">
+    <div class="modal-body" align="center">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-dark" (click)="this.clickHomeTeam()">{{this.homeTeamAbv}}</button>
+        <button type="button" class="btn btn-dark" (click)="this.clickAwayTeam()">{{this.awayTeamAbv}}</button>
+      </div>
+      <div class="ml-5 mr-5 mb-5">
+        <table class="table table-dark table-hover">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">PLAYER</th>
+            <th scope="col">MP</th>
+            <th scope="col">PTS</th>
+            <th scope="col">FG</th>
+            <th scope="col">FGA</th>
+            <th scope="col">FG%</th>
+            <th scope="col">3P</th>
+            <th scope="col">3P%</th>
+            <th scope="col">FT</th>
+            <th scope="col">FTA</th>
+            <th scope="col">FTA%</th>
+            <th scope="col">DRB</th>
+            <th scope="col">TRB</th>
+            <th scope="col">AST</th>
+            <th scope="col">STL</th>
+            <th scope="col">BLK</th>
+            <th scope="col">TOV</th>
+            <th scope="col">PF</th>
+            <th scope="col">+/-</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="this.entries.length > 0">
+            <tr *ngFor="let entry of this.entries">
+              <ng-container *ngIf="this.selectedTeam == this.homeTeamAbv; else awayTeam">
+                <ng-container *ngIf="entry.team == this.homeTeamAbv">
+                  <td>{{entry.player}}</td>
+                  <td>{{entry.mp}}</td>
+                  <td>{{entry.pts}}</td>
+                  <td>{{entry.fg}}</td>
+                  <td>{{entry.fga}}</td>
+                  <td>{{entry.fgaP}}</td>
+                  <td>{{entry.threeP}}</td>
+                  <td>{{entry.threePA}}</td>
+                  <td>{{entry.threePP}}</td>
+                  <td>{{entry.ft}}</td>
+                  <td>{{entry.fta}}</td>
+                  <td>{{entry.ftaP}}</td>
+                  <td>{{entry.drb}}</td>
+                  <td>{{entry.trb}}</td>
+                  <td>{{entry.ast}}</td>
+                  <td>{{entry.stl}}</td>
+                  <td>{{entry.blk}}</td>
+                  <td>{{entry.tov}}</td>
+                  <td>{{entry.pf}}</td>
+                  <td>{{entry.plusMinus}}</td>
+                </ng-container>
+              </ng-container>
+              <ng-template #awayTeam>
+                <ng-container *ngIf="entry.team == this.awayTeamAbv">
+                  <td>{{entry.player}}</td>
+                  <td>{{entry.mp}}</td>
+                  <td>{{entry.pts}}</td>
+                  <td>{{entry.fg}}</td>
+                  <td>{{entry.fga}}</td>
+                  <td>{{entry.fgaP}}</td>
+                  <td>{{entry.threeP}}</td>
+                  <td>{{entry.threePA}}</td>
+                  <td>{{entry.threePP}}</td>
+                  <td>{{entry.ft}}</td>
+                  <td>{{entry.fta}}</td>
+                  <td>{{entry.ftaP}}</td>
+                  <td>{{entry.drb}}</td>
+                  <td>{{entry.trb}}</td>
+                  <td>{{entry.ast}}</td>
+                  <td>{{entry.stl}}</td>
+                  <td>{{entry.blk}}</td>
+                  <td>{{entry.tov}}</td>
+                  <td>{{entry.pf}}</td>
+                  <td>{{entry.plusMinus}}</td>
+                </ng-container>
+              </ng-template>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</div>

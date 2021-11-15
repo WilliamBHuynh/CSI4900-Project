@@ -1,0 +1,19 @@
+.modal-header {
+  color: white;
+}
+.modal-body {
+  color: white;
+}
+.btn:hover {
+  background-color: var(--highlight-colour);
+  color: black;
+}
+
+.btn:focus {
+  background-color: var(--highlight-colour);
+  color: black;
+}
+
+.table-hover tr:hover  {
+  color: var(--highlight-colour);
+}
