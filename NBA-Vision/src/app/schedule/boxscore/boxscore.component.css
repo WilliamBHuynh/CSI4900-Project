@@ -6,7 +6,6 @@
   overflow-x: auto;
 }
 .modal-style {
-  width: 200%;
 }
 .btn:hover {
   background-color: var(--highlight-colour);
@@ -18,4 +17,8 @@
 }
 .table-hover tr:hover  {
   color: var(--highlight-colour);
+}
+.alert {
+  border: 0 !important;
+  margin: 0;
 }

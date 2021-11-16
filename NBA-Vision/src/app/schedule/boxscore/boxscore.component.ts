@@ -14,6 +14,7 @@ export class BoxscoreComponent implements OnInit, OnDestroy {
   @Input() homeTeamAbv: string;
   @Input() awayTeamAbv: string;
   res: any;
+  err = false;
   entries: BoxscoreEntry[] = [];
   subscription: Subscription;
   selectedTeam: string;
@@ -31,6 +32,10 @@ export class BoxscoreComponent implements OnInit, OnDestroy {
           stl: this.res.STL[i], blk: this.res.BLK[i], tov: this.res.TOV[i], pf: this.res.PF[i], plusMinus: this.res.plusMinus[i], team: this.res.TEAM[i]};
         this.addEntry(newEntry);
       }
+      this.err = false;
+    },
+      (error: any) => {
+        this.err = true;
     });
   }
 
