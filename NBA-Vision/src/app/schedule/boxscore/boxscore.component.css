@@ -1,28 +1,24 @@
-.fontChange {
-    position:absolute;
-    top:0;
-    right:0;
-    font-size :30px;
-  }
-.btn-group{
-    transform: scale(1);
-    transform-origin: 0 0;
+.modal-header {
+  color: white;
 }
-.tableLogo {
-  width: 30px;
-  padding-right: 7px;
+.modal-body {
+  color: white;
+  overflow-x: auto;
 }
-
+.modal-style {
+}
 .btn:hover {
   background-color: var(--highlight-colour);
   color: black;
 }
-
 .btn:focus {
   background-color: var(--highlight-colour);
   color: black;
 }
-
 .table-hover tr:hover  {
   color: var(--highlight-colour);
+}
+.alert {
+  border: 0 !important;
+  margin: 0;
 }

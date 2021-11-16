@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {StandingEntry} from "./standing-entry";
 import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import Utils from "../utils.";
 
 @Component({
   selector: 'app-standings',
@@ -48,7 +49,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
   }
 
   refreshStandings(): void {
-    this.service.getStanding().subscribe((res: any) => {
+    this.subscription = this.service.getStanding().subscribe((res: any) => {
       this.data = JSON.parse(res);
       for (let i = 0; i < Object.keys(this.data.W).length; i++) {
         const newEntry: StandingEntry = {team: this.data.TEAM[i], w: this.data.W[i], l: this.data.L[i], wL: this.data.WL[i].toFixed(3),
@@ -61,6 +62,10 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   addStandingEntry(entry: StandingEntry): void {
     this.standingEntries.push(entry);
+  }
+
+  convertTeamName(name: string): string {
+    return Utils.convertTeamName(name);
   }
 
   clickAll(): void {

@@ -11,10 +11,6 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  getGames(): Observable<any[]> {
-    return this.http.get<any[]>(this.APIUrl + '/game/');
-  }
-
   getSchedule(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/schedule/');
   }
@@ -25,6 +21,10 @@ export class GameService {
 
   getPrediction(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/prediction/');
+  }
+
+  getBoxScores(params: string): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/boxscore/' + params);
   }
 
 }

@@ -11,6 +11,7 @@ import { GameService } from "./service/game.service";
 import { HttpClientModule } from '@angular/common/http';
 import { PredictionsComponent } from './predictions/predictions.component';
 import { StandingsComponent } from './standings/standings.component';
+import { BoxscoreComponent } from './schedule/boxscore/boxscore.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { StandingsComponent } from './standings/standings.component';
     HomeComponent,
     PredictionsComponent,
     StandingsComponent,
+    BoxscoreComponent,
   ],
   imports: [
     HttpClientModule,

@@ -1,29 +1,29 @@
-<div class="container">
+<button attr.aria-label="{{this.ariaLabel()}}" class="container" (dblclick)="open()">
   <!-- First row -->
   <div class="row align-items-center">
     <!-- Home logo -->
     <div class="col-sm" align="center">
-      <img class="logo" src="../../../assets/logos/{{entry.homeTeamName.toLowerCase()}}.png">
+      <img aria-label="" class="logo" src="../../../assets/logos/{{this.teamHomeAbv}}.png">
     </div>
     <!-- Team points -->
-    <ng-container *ngIf="entry.live; else scheduled">
+    <ng-container *ngIf="this.entry.live; else scheduled">
       <div class="col-sm">
-        <label>{{entry.homeTeamScore}}</label>
+        <label>{{this.entry.homeTeamScore}}</label>
       </div>
       <div class="col-sm">
-        <label>{{entry.awayTeamScore}}</label>
+        <label>{{this.entry.awayTeamScore}}</label>
       </div>
     </ng-container>
     <!-- Away logo -->
     <div class="col-sm" align="center">
-      <img class="logo" src="../../../assets/logos/{{entry.awayTeamName.toLowerCase()}}.png">
+      <img aria-label="" class="logo" src="../../../assets/logos/{{this.teamAwayAbv}}.png">
     </div>
   </div>
   <!-- Second row -->
   <div class="row align-items-center">
     <!-- Home name -->
     <div class="col-sm" align="center">
-      <label>{{entry.homeTeamName.toUpperCase()}}</label>
+      <label>{{this.teamHomeAbv.toUpperCase()}}</label>
     </div>
     <!-- Spacing -->
     <div class="col-sm">
@@ -34,10 +34,10 @@
     </div>
     <!-- Away name -->
     <div class="col-sm" align="center">
-      <label>{{entry.awayTeamName.toUpperCase()}}</label>
+      <label>{{this.teamAwayAbv.toUpperCase()}}</label>
     </div>
   </div>
-</div>
+</button>
 <ng-template #scheduled>
   <div class="col-sm">
     <label>0</label>
