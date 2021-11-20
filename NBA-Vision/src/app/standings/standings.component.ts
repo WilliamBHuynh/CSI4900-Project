@@ -25,6 +25,21 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   changeFont(operator:any) {
 
+
+    if (this.fontSize > 80){
+      this.fontSize=80
+    }
+    else if (this.fontSize<15){
+      this.fontSize=15
+    }
+
+    if (this.fontSizeB > 1.5){
+      this.fontSizeB=1.5
+    }
+    else if (this.fontSizeB<.75){
+      this.fontSizeB=.75
+    }
+
     if (operator=='+'){
       this.fontSize+=5
       this.fontSizeB +=.25;

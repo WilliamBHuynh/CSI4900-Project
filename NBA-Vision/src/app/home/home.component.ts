@@ -42,6 +42,13 @@ export class HomeComponent implements OnInit {
   }
 
   changeFont(operator:any) {
+
+    if (this.fontSize > 250){
+      this.fontSize=250
+    }
+    else if (this.fontSize<20){
+      this.fontSize=20
+    }
     operator === '+' ? this.fontSize+=5 : this.fontSize-=5;
     (this.navElemS.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
     (this.navElemP.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;

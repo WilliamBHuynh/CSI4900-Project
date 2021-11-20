@@ -21,6 +21,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
 
   changeFont(operator:any) {
+
+    if (this.fontSize > 5){
+      this.fontSize=5
+    }
+    else if (this.fontSize<.5){
+      this.fontSize=.5
+    }
+
     operator === '+' ? this.fontSize+=0.25 : this.fontSize-=0.25;
     (this.entry.nativeElement as HTMLParagraphElement).style.transform = `scale(`+this.fontSize+')';
 
