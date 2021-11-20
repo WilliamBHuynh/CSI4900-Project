@@ -26,3 +26,19 @@
 .table-hover tr:hover  {
   color: var(--highlight-colour);
 }
+
+#zBtn {
+  font-size: 40px;
+}
+
+.arrow {
+  color: white;
+}
+
+.h1{
+  display:block; 
+}
+
+#standings{
+  padding:0
+}

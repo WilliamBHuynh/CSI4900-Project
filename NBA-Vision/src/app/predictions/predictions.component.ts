@@ -59,6 +59,7 @@ export class PredictionsComponent implements OnInit {
 
   fontSize = 20;
   @ViewChild('predTbl', { static: true }) predTbl: ElementRef;
+  @ViewChild('loading', { static: true }) loading: ElementRef;
   
   i=0;
 
@@ -213,6 +214,13 @@ export class PredictionsComponent implements OnInit {
 
 
   changeFont(operator:any) {
+    if (this.fontSize > 70){
+      this.fontSize=70
+    }
+    else if (this.fontSize<10){
+      this.fontSize=10
+    }
+
     operator === '+' ? this.fontSize+=5 : this.fontSize-=5;
     (this.predTbl.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
     
@@ -226,19 +234,17 @@ export class PredictionsComponent implements OnInit {
     this.service.getPrediction().subscribe(
       (data:any) => {
         this.service.predData = JSON.parse(data)
-        this.getGame(this.i)
-        this.title="Loaded";
+        this.getGame(this.i);
         (this.predTbl.nativeElement as HTMLParagraphElement).style.visibility = `visible`;
-
+        (this.loading.nativeElement as HTMLParagraphElement).style.display = `none`;
       },
       (err: HttpErrorResponse) => {
         console.log (err.message);
       }
 
     );
-    this.title="Loading..."
     }else {
-      this.title="Loaded";
+      (this.loading.nativeElement as HTMLParagraphElement).style.display = `none`;
       this.getGame(this.i);
       (this.predTbl.nativeElement as HTMLParagraphElement).style.visibility = `visible`;
     }

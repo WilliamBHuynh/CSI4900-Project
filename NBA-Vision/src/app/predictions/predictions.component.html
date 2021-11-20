@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center" id='main'>
     <div>
       <h1>
         Predictions
@@ -6,108 +6,114 @@
     </div>
 
       <div>
-        <label id="outcome" > {{title}}</label>
+      <button (click)="nextGame('back')" class="btn"  > <i class="fa fa-arrow-circle-left fa-2x arrow"></i></button> 
+      <button (click)="nextGame('next')" class="btn"  ><i class="fa fa-arrow-circle-right fa-2x arrow"></i></button> 
+      <p></p>
       </div>
 
-      <button (click)="nextGame('back')" >Back</button> 
-      <button (click)="nextGame('next')" >Next</button> 
-      <p></p>
-      <div class="fontChange">
-      <button (click)="changeFont('+')">+</button>
-      <button (click)="changeFont('-')">-</button>
+      <div>
+        <img #loading src="../../assets/loading.gif" alt="loading"  width="100" />
       </div>
-        
+      
+      <div class="fontChange">
+        <button (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow"></i></button>
+      <button (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow"></i></button>
+      </div>
+        <div>
         <table border="1" class="table table-dark table-striped" id="predTbl" #predTbl>
+          <caption></caption>
+
           <tr>
-            <th></th>
-            <th>{{team1}}</th>
-            <th>{{team2}}</th>
+            <td></td>
+            <th scope="col">{{team1}}</th>
+            <th scope="col">{{team2}}</th>
           </tr>
           <tr>
-            <th>FGM</th>
+            <th scope="row">FGM</th>
             <td>{{FGM}}</td>
             <td>{{FGM2}}</td>
           </tr>
           <tr>
-            <th>FGA</th>
+            <th scope="row">FGA</th>
             <td>{{FGA}}</td>
             <td>{{FGA2}}</td>
           </tr>
           <tr>
-            <th>TPM</th>
+            <th scope="row">TPM</th>
             <td>{{TPM}}</td>
             <td>{{TPM2}}</td>
           </tr>
           <tr>
-            <th>TPA</th>
+            <th scope="row">TPA</th>
             <td>{{TPA}}</td>
             <td>{{TPA2}}</td>
           </tr>
           <tr>
-            <th>FTM</th>
+            <th scope="row">FTM</th>
             <td>{{FTM}}</td>
             <td>{{FTM2}}</td>
           </tr>
           <tr>
-            <th>FTA</th>
+            <th scope="row">FTA</th>
             <td>{{FTA}}</td>
             <td>{{FTA2}}</td>
           </tr>
           <tr>
-            <th>OR</th>
+            <th scope="row">OR</th>
             <td>{{OR}}</td>
             <td>{{OR2}}</td>
           </tr>
           <tr>
-            <th>DR</th>
+            <th scope="row">DR</th>
             <td>{{DR}}</td>
             <td>{{DR2}}</td>
           </tr>
           <tr>
-            <th>AST</th>
+            <th scope="row">AST</th>
             <td>{{AST}}</td>
             <td>{{AST2}}</td>
           </tr>
           <tr>
-            <th>STL</th>
+            <th scope="row">STL</th>
             <td>{{STL}}</td>
             <td>{{STL2}}</td>
           </tr>
           <tr>
-            <th>BLK</th>
+            <th scope="row">BLK</th>
             <td>{{BLK}}</td>
             <td>{{BLK2}}</td>
           </tr>
           <tr>
-            <th>TO</th>
+            <th scope="row">TO</th>
             <td>{{TO}}</td>
             <td>{{TO2}}</td>
           </tr>
           <tr>
-            <th>PF</th>
+            <th scope="row">PF</th>
             <td>{{PF}}</td>
             <td>{{PF2}}</td>
           </tr>
           <tr>
-            <th>LOC</th>
+            <th scope="row">LOC</th>
             <td>{{LOC}}</td>
             <td>{{LOC2}}</td>
           </tr>
           <tr>
-            <th>ELO</th>
+            <th scope="row">ELO</th>
             <td>{{ELO}}</td>
             <td>{{ELO2}}</td>
           </tr>
           <tr>
-            <th>DEF</th>
+            <th scope="row">DEF</th>
             <td>{{DEF}}</td>
             <td>{{DEF2}}</td>
           </tr>
           <tr>
-            <th>PREDICTED WINNER</th>
+            <th scope="row">PREDICTED WINNER</th>
             <td>{{Outcome}}</td>
           </tr>
         </table>
+      </div>
 
   </div>
   

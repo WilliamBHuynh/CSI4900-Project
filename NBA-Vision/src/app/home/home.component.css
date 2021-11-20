@@ -30,3 +30,15 @@
   font-size :30px;
 }
 
+.btn {
+  background-color: var(--main-bg-colour);
+  font-size: xx-large;
+}
+
+.btn:hover {
+  background-color: var(--highlight-colour);
+}
+
+.arrow {
+  color: white;
+}
