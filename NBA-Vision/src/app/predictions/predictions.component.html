@@ -21,95 +21,94 @@
       </div>
         <div>
         <table border="1" class="table table-dark table-striped" id="predTbl" #predTbl>
-          <caption></caption>
-
+          <caption>{{team1}} versus {{team2}} stats and predicted outcome. {{Outcome}} are expected to win this game</caption>
           <tr>
             <td></td>
-            <th scope="col">{{team1}}</th>
-            <th scope="col">{{team2}}</th>
+            <th id="team1">{{team1}}</th>
+            <th id="team2">{{team2}}</th>
           </tr>
           <tr>
-            <th scope="row">FGM</th>
+            <th>Field Goals Made</th>
             <td>{{FGM}}</td>
             <td>{{FGM2}}</td>
           </tr>
           <tr>
-            <th scope="row">FGA</th>
+            <th>Field Goals Attempted</th>
             <td>{{FGA}}</td>
             <td>{{FGA2}}</td>
           </tr>
           <tr>
-            <th scope="row">TPM</th>
-            <td>{{TPM}}</td>
+            <th>Three Pointers Made</th>
+            <td>{{TPM}}</td> 
             <td>{{TPM2}}</td>
           </tr>
           <tr>
-            <th scope="row">TPA</th>
+            <th>Three Pointers Attempted</th>
             <td>{{TPA}}</td>
             <td>{{TPA2}}</td>
           </tr>
           <tr>
-            <th scope="row">FTM</th>
+            <th>Free Throws Made</th>
             <td>{{FTM}}</td>
             <td>{{FTM2}}</td>
           </tr>
           <tr>
-            <th scope="row">FTA</th>
+            <th>Free Throws Attempted</th>
             <td>{{FTA}}</td>
             <td>{{FTA2}}</td>
           </tr>
           <tr>
-            <th scope="row">OR</th>
+            <th>Offensive Rebounds</th>
             <td>{{OR}}</td>
             <td>{{OR2}}</td>
           </tr>
           <tr>
-            <th scope="row">DR</th>
+            <th>Defensive Rebounds</th>
             <td>{{DR}}</td>
             <td>{{DR2}}</td>
           </tr>
           <tr>
-            <th scope="row">AST</th>
+            <th>Assists</th>
             <td>{{AST}}</td>
             <td>{{AST2}}</td>
           </tr>
           <tr>
-            <th scope="row">STL</th>
+            <th>Steals</th>
             <td>{{STL}}</td>
             <td>{{STL2}}</td>
           </tr>
           <tr>
-            <th scope="row">BLK</th>
+            <th>Blocks</th>
             <td>{{BLK}}</td>
             <td>{{BLK2}}</td>
           </tr>
           <tr>
-            <th scope="row">TO</th>
+            <th>Turnovers</th>
             <td>{{TO}}</td>
             <td>{{TO2}}</td>
           </tr>
           <tr>
-            <th scope="row">PF</th>
+            <th>Personal Fouls</th>
             <td>{{PF}}</td>
             <td>{{PF2}}</td>
           </tr>
           <tr>
-            <th scope="row">LOC</th>
+            <th>Location</th>
             <td>{{LOC}}</td>
             <td>{{LOC2}}</td>
           </tr>
           <tr>
-            <th scope="row">ELO</th>
+            <th>Elo</th>
             <td>{{ELO}}</td>
             <td>{{ELO2}}</td>
           </tr>
           <tr>
-            <th scope="row">DEF</th>
+            <th>Defensive Rating</th>
             <td>{{DEF}}</td>
             <td>{{DEF2}}</td>
           </tr>
           <tr>
-            <th scope="row">PREDICTED WINNER</th>
+            <th>Predicted Winner</th>
             <td>{{Outcome}}</td>
           </tr>
         </table>

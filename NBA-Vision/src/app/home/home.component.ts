@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private announcer: LiveAnnouncer,private router: Router) {}
 
   ngOnInit(): void {
-    this.announcer.announce("Please use the arrow up and down keys to navigate the app, enter to select and backspace to go back.");
+    this.announcer.announce("Please use the S key for schedule, T key for standings and P key for predictions. Use plus and minus keys to zoom in and out.");
   }
 
   fontSize = 48;
