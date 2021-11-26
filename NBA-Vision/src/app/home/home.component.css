@@ -15,7 +15,6 @@
 .nav-elem label:after {
   content: '';
   display: block;
-  border-top: 3px solid var(--highlight-colour);
   margin-top: 0.1em;
 }
 

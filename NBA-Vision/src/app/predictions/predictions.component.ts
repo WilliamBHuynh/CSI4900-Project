@@ -7,6 +7,8 @@ import { DOCUMENT } from '@angular/common';
 import { ScheduleEntry } from '../schedule/schedule-entry';
 import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 
 
 
@@ -63,16 +65,15 @@ export class PredictionsComponent implements OnInit {
   
   i=0;
 
-  constructor(private service: GameService,private router: Router) {
+  constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) {
     
    }
 
 
   ngOnInit(): void {
 
-    
+    this.announcer.announce("Use shift plus arrow keys to move through days. Add and subtract keys to zoom in and out. Control plus left arrow key to return home")
     this.getPredictions();
-    
 
   }
 
@@ -94,7 +95,7 @@ export class PredictionsComponent implements OnInit {
         this.BLK  = this.service.predData.BLK[i] 
         this.TO  = this.service.predData.TO[i] 
         this.PF  = this.service.predData.PF[i] 
-        this.LOC  = this.service.predData.LOC[i] 
+        this.LOC  = ((this.service.predData.LOC[i]==1) ? 'Home' : 'Away');
         this.ELO  = this.service.predData.ELO[i] 
         this.DEF = (this.service.predData.DEF[i]*100).toString()
 
@@ -111,7 +112,7 @@ export class PredictionsComponent implements OnInit {
         this.BLK2  = this.service.predData.BLK2[i] 
         this.TO2  = this.service.predData.TO2[i] 
         this.PF2  = this.service.predData.PF2[i] 
-        this.LOC2  = this.service.predData.LOC2[i] 
+        this.LOC2  = ((this.service.predData.LOC2[i]==1) ? 'Home' : 'Away');
         this.ELO2  = this.service.predData.ELO2[i] 
         this.DEF2 = (this.service.predData.DEF2[i]*100).toString()
 
@@ -195,13 +196,13 @@ export class PredictionsComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
 
-    if (e.keyCode == 39) {
+    if (e.shiftKey && e.keyCode == 39) {
       this.nextGame('next')
     }
     else if (e.ctrlKey && e.keyCode == 37){
       this.router.navigate(['/']);
     }
-    else if (e.keyCode == 37){
+    else if (e.shiftKey && e.keyCode == 37){
       this.nextGame('back')
     }
     else if (e.keyCode == 187){

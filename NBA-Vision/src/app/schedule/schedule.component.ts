@@ -4,6 +4,7 @@ import {GameService} from "../service/game.service";
 import {Subscription} from "rxjs";
 import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-schedule',
@@ -16,7 +17,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   today = new Date();
   entries: ScheduleEntry[] = [];
   @ViewChild('entryContainer', { static: true }) entry: ElementRef;
-  constructor(private service: GameService,private router: Router) { }
+  constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) { }
   fontSize = 1;
 
 
@@ -36,6 +37,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.refreshSchedule();
+    this.announcer.announce("Use shift plus arrow keys to move through days. Add and subtract keys to zoom in and out. Control plus left arrow key to return home")
   }
 
   ngOnDestroy(): void {
@@ -110,13 +112,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
 
-    if (e.keyCode == 39) {
+    if (e.shiftKey && e.keyCode == 39) {
       this.goForwardDay()
     }
     else if (e.ctrlKey && e.keyCode == 37){
       this.router.navigate(['/']);
     }
-    else if (e.keyCode == 37){
+    else if (e.shiftKey && e.keyCode == 37){
       this.goBackDay()
     }
     else if (e.keyCode == 187){

@@ -5,6 +5,8 @@ import {StandingEntry} from "./standing-entry";
 import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import Utils from "../utils.";
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 
 @Component({
   selector: 'app-standings',
@@ -53,10 +55,12 @@ export class StandingsComponent implements OnInit, OnDestroy {
     (this.buttons.nativeElement as HTMLParagraphElement).style.transformOrigin= 'bottom';
 
   }
-  constructor(private service: GameService,private router: Router) { }
+  constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) { }
 
   ngOnInit(): void {
     this.refreshStandings();
+    this.announcer.announce("Use A , E , and W keys to move through confrences. Add and subtract keys to zoom in and out. Control plus left arrow key to return home")
+
   }
 
   ngOnDestroy(): void {
