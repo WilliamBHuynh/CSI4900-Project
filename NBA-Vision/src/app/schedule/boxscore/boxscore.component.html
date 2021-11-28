@@ -9,7 +9,7 @@
     <ng-container *ngIf="this.params != ''">
       <div class="modal-body" align="center">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-dark" (click)="this.clickHomeTeam()">{{this.homeTeamAbv}}</button>
+          <button type="button" class="btn btn-dark" (click)="this.clickHomeTeam()" appAutoFocus>{{this.homeTeamAbv}}</button>
           <button type="button" class="btn btn-dark" (click)="this.clickAwayTeam()">{{this.awayTeamAbv}}</button>
         </div>
         <div class="ml-5 mr-5 mb-5">
