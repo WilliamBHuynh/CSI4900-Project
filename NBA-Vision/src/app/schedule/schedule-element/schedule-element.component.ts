@@ -28,7 +28,7 @@ export class ScheduleElementComponent implements OnInit {
   }
 
   open() {
-    const modalRef = this.modalService.open(BoxscoreComponent);
+    const modalRef = this.modalService.open(BoxscoreComponent, {size: "xl"});
     let dateEntry = this.entry.date +'';
     const teamHomeAbvUpper = this.teamHomeAbv.toUpperCase();
     const teamAwayAbvUpper = this.teamAwayAbv.toUpperCase();
