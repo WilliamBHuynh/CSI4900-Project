@@ -10,16 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  shortCutsMsg = "Use alt key plus the following keys. " +
+                "G key for games, S key for standings and P key for predictions. " +
+                "On any screen, " +
+                "Use plus and minus keys to zoom in and out. " +
+                "Use R key to repeat keyboard shortcuts.";
   constructor(private announcer: LiveAnnouncer,private router: Router) {}
 
   ngOnInit(): void {
     this.announcer.announce(
-      "Home screen. " +
-      "Please use the alt key with each command. " +
-      "Use G key for games, S key for standings and P key for predictions. " +
-      "Use plus and minus keys to zoom in and out. " +
-      "Use R key to repeat this message.");
+      "Home screen. " + this.shortCutsMsg);
   }
 
   fontSize = 48;
@@ -32,12 +32,7 @@ export class HomeComponent implements OnInit {
       this.navGames();
     }
     else if (e.keyCode == 82) {
-      this.announcer.announce(
-        "Home screen. " +
-        "Please use the alt key with each command. " +
-        "Use G key for games, S key for standings and P key for predictions. " +
-        "Use plus and minus keys to zoom in and out. " +
-        "Use R key to repeat this message.");
+      this.announcer.announce(this.shortCutsMsg);
     }
     else if (e.keyCode == 83){
       this.navStandings();
@@ -65,7 +60,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/predictions']);
   }
 
-
+  repeatMsg(): void {
+    this.announcer.announce(this.shortCutsMsg);
+  }
   changeFont(operator:any) {
 
     if (this.fontSize > 250){
@@ -80,5 +77,4 @@ export class HomeComponent implements OnInit {
     (this.navElemSt.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
 
   }
-
 }

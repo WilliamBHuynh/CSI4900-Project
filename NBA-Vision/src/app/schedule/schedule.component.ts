@@ -16,6 +16,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   today = new Date();
   entries: ScheduleEntry[] = [];
+  shortcutMsg = ". Use shift plus arrow keys to move through days. " +
+                "Use control plus left arrow key to return home.";
   @ViewChild('entryContainer', { static: true }) entry: ElementRef;
   constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) { }
   fontSize = 1;
@@ -39,10 +41,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.refreshSchedule();
     this.announcer.announce(
       "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
-      " " + this.today.getDate() +
-      ". Use shift plus arrow keys to move through days. " +
-      "Control plus left arrow key to return home. " +
-      "Use R key to repeat this message.");
+      " " + this.today.getDate() + this.shortcutMsg);
   }
 
   ngOnDestroy(): void {
@@ -90,6 +89,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.announcer.announce(
       "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
       " " + this.today.getDate());
+  }
+
+  repeatMsg(): void {
+    this.announcer.announce(this.shortcutMsg);
   }
 
   convertMonth(monthNum: string): string {
@@ -165,10 +168,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     else if (e.keyCode == 82) {
       this.announcer.announce(
         "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
-        " " + this.today.getDate() +
-        ". Use shift plus arrow keys to move through days. " +
-        "Control plus left arrow key to return home. " +
-        "Use R key to repeat this message.");
+        " " + this.today.getDate() + this.shortcutMsg);
     }
     else if (e.shiftKey && e.keyCode == 37){
       this.goBackDay();

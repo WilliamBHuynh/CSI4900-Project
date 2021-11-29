@@ -16,8 +16,9 @@
       <button class="btnNav" (dblclick)="this.navPredictions()" aria-label="Predictions"><label aria-hidden="true"><u>P</u>redictions</label></button>
     </div>
     <div class="fontChange">
-    <button id='btnFontMinus' (dblclick)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
-    <button id='btnFontPlus' (dblclick)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
+      <button (dblclick)="this.repeatMsg()" class="btn" style="color: white"><i class="fa fa-backward" aria-label="Repeat keyboard shortcuts"></i></button>
+      <button id='btnFontMinus' (dblclick)="changeFont('-')" class="btn"><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+      <button id='btnFontPlus' (dblclick)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
   </div>
   </div>
 </div>

@@ -11,6 +11,7 @@ import {BoxscoreEntry} from "../../boxscore/boxscore-entry";
 })
 export class BoxscoreComponent implements OnInit, OnDestroy {
   @Input() params: string;
+  @Input() scheduled: boolean;
   @Input() homeTeamAbv: string;
   @Input() awayTeamAbv: string;
   res: any;

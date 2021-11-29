@@ -10,6 +10,7 @@
     <button type="button" class="btn btn-dark" (click)="clickWest()"><u>W</u>est</button>
   </div>
   <div class="fontChange">
+    <button (dblclick)="this.repeatMsg()" class="btn" style="color: white"><i class="fa fa-backward" aria-label="Repeat keyboard shortcuts"></i></button>
     <button id='zBtn' (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow"></i></button>
     <button id='zBtn' (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow"></i></button>
   </div>

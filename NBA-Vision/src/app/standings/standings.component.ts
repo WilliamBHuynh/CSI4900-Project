@@ -59,11 +59,18 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.refreshStandings();
-    this.announcer.announce("Use A , E , and W keys to move through conferences. Add and subtract keys to zoom in and out. Control plus left arrow key to return home");
+    this.announcer.announce(
+      "Standings for all divisions. " +
+      "Use A , E , and W keys to move through conferences." +
+      "Control plus left arrow key to return home");
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  repeatMsg(): void {
+
   }
 
   refreshStandings(): void {
