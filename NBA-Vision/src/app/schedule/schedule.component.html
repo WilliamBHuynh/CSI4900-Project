@@ -5,12 +5,12 @@
     </h1>
   </div>
   <div class="pb-3">
-      <button aria-label="Go to previous day" class="btn" (dblclick)="goBackDay()">
+      <button aria-label="Go to previous day" class="btn" (click)="goBackDay()">
         <i class="fa fa-arrow-circle-left fa-2x arrow"></i>
       </button>
     <label class="date" aria-hidden="true">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1])
       + " " + this.today.toISOString().split('T', 1)[0].split("-")[2]}}</label>
-    <button aria-label="Go to next day" class="btn" (dblclick)="goForwardDay()">
+    <button aria-label="Go to next day" class="btn" (click)="goForwardDay()">
       <i class="fa fa-arrow-circle-right fa-2x arrow"></i>
     </button>
   </div>
@@ -22,8 +22,8 @@
     </div>
   </div>
   <div class="fontChange">
-    <button (dblclick)="this.repeatMsg()" class="btn" style="color: white"><i class="fa fa-backward" aria-label="Repeat keyboard shortcuts"></i></button>
-    <button (dblclick)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
-    <button (dblclick)="changeFont('+')" class="btn"><i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
+    <button id="zBtn" (click)="this.navHome()" class="btn" style="color: white"><i class="fa fa-home" aria-label="Home"></i></button>
+    <button id="zBtn" (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+    <button id="zBtn" (click)="changeFont('+')" class="btn"><i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
   </div>
 </div>

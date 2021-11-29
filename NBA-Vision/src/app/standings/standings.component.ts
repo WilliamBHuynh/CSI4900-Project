@@ -21,6 +21,9 @@ export class StandingsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   fontSize =20;
   fontSizeB =1;
+  shortCutsMsg = "Use alt key plus the following keys. " +
+                "A key for all conferences, E key for eastern conference, and W for western conference. " +
+                "Use control key plus left arrow key to return home";
   @ViewChild('standings', { static: true }) standings: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
@@ -60,17 +63,15 @@ export class StandingsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.refreshStandings();
     this.announcer.announce(
-      "Standings for all divisions. " +
-      "Use A , E , and W keys to move through conferences." +
-      "Control plus left arrow key to return home");
+      "Standings for all conferences. " + this.shortCutsMsg);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  repeatMsg(): void {
-
+  navHome(): void {
+    this.router.navigate(['/']);
   }
 
   refreshStandings(): void {
@@ -91,6 +92,11 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   convertTeamName(name: string): string {
     return Utils.convertTeamName(name);
+  }
+
+  teamDetails(entry: StandingEntry) {
+    this.announcer.announce("Wins: " + entry.w + ", lost: " + entry.l + ", win, lost percentage: " + entry.wL + ", Pythagorean wins: " + entry.pw + ", Pythagorean lost: " + entry.pl+ ", Points scored per game: " +
+      entry.psg+ ", Points allowed per game: " + entry.pag);
   }
 
   clickAll(): void {
@@ -137,6 +143,9 @@ export class StandingsComponent implements OnInit, OnDestroy {
     }
     else if (e.keyCode == 189){
       this.changeFont('-')
+    }
+    else if (e.keyCode == 82) {
+      this.announcer.announce(this.shortCutsMsg);
     }
   }
 }

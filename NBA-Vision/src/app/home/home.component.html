@@ -7,18 +7,17 @@
   </div>
   <div>
     <div>
-      <button class="btnNav" (dblclick)="this.navGames()" aria-label="Games"><label aria-hidden="true"><u>G</u>ames</label></button>
+      <button class="btnNav" (click)="this.navGames()" aria-label="Games" appAutoFocus><label aria-hidden="true"><u>G</u>ames</label></button>
     </div>
     <div>
-      <button class="btnNav" (dblclick)="this.navStandings()" aria-label="Standings"><label aria-hidden="true"><u>S</u>tandings</label></button>
+      <button class="btnNav" (click)="this.navStandings()" aria-label="Standings"><label aria-hidden="true"><u>S</u>tandings</label></button>
     </div>
     <div>
-      <button class="btnNav" (dblclick)="this.navPredictions()" aria-label="Predictions"><label aria-hidden="true"><u>P</u>redictions</label></button>
+      <button class="btnNav" (click)="this.navPredictions()" aria-label="Predictions"><label aria-hidden="true"><u>P</u>redictions</label></button>
     </div>
     <div class="fontChange">
-      <button (dblclick)="this.repeatMsg()" class="btn" style="color: white"><i class="fa fa-backward" aria-label="Repeat keyboard shortcuts"></i></button>
-      <button id='btnFontMinus' (dblclick)="changeFont('-')" class="btn"><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
-      <button id='btnFontPlus' (dblclick)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
-  </div>
+      <button id='zBtn' (click)="changeFont('-')" class="btn"><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+      <button id='zBtn' (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
+    </div>
   </div>
 </div>

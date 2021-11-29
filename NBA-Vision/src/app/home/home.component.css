@@ -57,3 +57,7 @@
 .arrow {
   color: white;
 }
+
+:focus {
+  background-color: var(--highlight-colour);
+}

@@ -23,14 +23,6 @@
   color: black;
 }
 
-.table-hover tr:hover  {
-  color: var(--highlight-colour);
-}
-
-#zBtn {
-  font-size: 40px;
-}
-
 .arrow {
   color: white;
 }
@@ -41,4 +33,14 @@
 
 #standings{
   padding:0
+}
+
+:focus {
+  background-color: var(--highlight-colour);
+  color: black;
+}
+
+.btn-row {
+  border-radius: 0;
+  width: 100%;
 }

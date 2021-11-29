@@ -17,7 +17,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   today = new Date();
   entries: ScheduleEntry[] = [];
   shortcutMsg = ". Use shift plus arrow keys to move through days. " +
-                "Use control plus left arrow key to return home.";
+                "Use control key plus left arrow key to return home.";
   @ViewChild('entryContainer', { static: true }) entry: ElementRef;
   constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) { }
   fontSize = 1;
@@ -91,8 +91,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       " " + this.today.getDate());
   }
 
-  repeatMsg(): void {
-    this.announcer.announce(this.shortcutMsg);
+  navHome(): void {
+    this.router.navigate(['/']);
   }
 
   convertMonth(monthNum: string): string {
@@ -162,7 +162,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     if (e.shiftKey && e.keyCode == 39) {
       this.goForwardDay();
     }
-    else if (e.keyCode == 72){
+    else if (e.ctrlKey && e.keyCode == 37){
       this.router.navigate(['/']);
     }
     else if (e.keyCode == 82) {

@@ -13,8 +13,7 @@ export class HomeComponent implements OnInit {
   shortCutsMsg = "Use alt key plus the following keys. " +
                 "G key for games, S key for standings and P key for predictions. " +
                 "On any screen, " +
-                "Use plus and minus keys to zoom in and out. " +
-                "Use R key to repeat keyboard shortcuts.";
+                "Use plus and minus keys to zoom in and out. ";
   constructor(private announcer: LiveAnnouncer,private router: Router) {}
 
   ngOnInit(): void {
@@ -60,9 +59,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/predictions']);
   }
 
-  repeatMsg(): void {
-    this.announcer.announce(this.shortCutsMsg);
-  }
   changeFont(operator:any) {
 
     if (this.fontSize > 250){

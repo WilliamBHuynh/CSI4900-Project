@@ -1,30 +1,29 @@
 <div align="center">
-  <div class="pb-3">
+  <div class="pb-3" aria-hidden="true">
     <h1>
       Standings
     </h1>
   </div>
   <div class="btn-group" role="group" #buttons>
-    <button type="button" class="btn btn-dark" (click)="clickAll()" appAutoFocus><u>A</u>ll</button>
-    <button type="button" class="btn btn-dark" (click)="clickEast()"><u>E</u>ast</button>
-    <button type="button" class="btn btn-dark" (click)="clickWest()"><u>W</u>est</button>
+    <button type="button" class="btn btn-dark" (click)="clickAll()" aria-label="All conferences" appAutoFocus><label aria-hidden="true"><u>A</u>ll</label></button>
+    <button type="button" class="btn btn-dark" (click)="clickEast()" aria-label="Eastern conference"><label aria-hidden="true"><u>E</u>ast</label></button>
+    <button type="button" class="btn btn-dark" (click)="clickWest()" aria-label="Western conference"><label aria-hidden="true"><u>W</u>est</label></button>
   </div>
   <div class="fontChange">
-    <button (dblclick)="this.repeatMsg()" class="btn" style="color: white"><i class="fa fa-backward" aria-label="Repeat keyboard shortcuts"></i></button>
-    <button id='zBtn' (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow"></i></button>
-    <button id='zBtn' (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow"></i></button>
+    <button id='zBtn' (click)="this.navHome()" class="btn" style="color: white"><i class="fa fa-home" aria-label="Home"></i></button>
+    <button id='zBtn' (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+    <button id='zBtn' (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
   </div>
 
   <div class="ml-5 mr-5">
-    <table class="table table-dark table-hover mb-0" #standings id="standings">
-      <thead class="thead-light">
+    <table class="table table-dark mb-0" #standings id="standings">
+      <thead class="thead-light" aria-hidden="true">
       <tr>
-        <th scope="col"></th>
+        <th scope="col">Rank</th>
         <th scope="col">Team</th>
         <th scope="col">W</th>
         <th scope="col">L</th>
         <th scope="col">W/L%</th>
-        <th scope="col">GB</th>
         <th scope="col">PW</th>
         <th scope="col">PL</th>
         <th scope="col">PS/G</th>
@@ -39,13 +38,14 @@
             <ng-container *ngIf="entry.div == 'east'">
               <td>{{this.rank}}</td>
               <td>
-                <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
-                {{entry.team}}
+                <button type="button" class="btn btn-dark btn-row text-left" (click)="this.teamDetails(this.entry)">
+                  <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
+                  {{entry.team}}
+                </button>
               </td>
               <td>{{entry.w}}</td>
               <td>{{entry.l}}</td>
               <td>{{entry.wL}}</td>
-              <td>{{entry.gb}}</td>
               <td>{{entry.pw}}</td>
               <td>{{entry.pl}}</td>
               <td>{{entry.psg}}</td>
@@ -58,13 +58,14 @@
               <ng-container *ngIf="entry.div == 'west'">
                 <td>{{this.rank}}</td>
                 <td>
-                  <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
-                  {{entry.team}}
+                  <button type="button" class="btn btn-dark btn-row text-left" (click)="this.teamDetails(this.entry)">
+                    <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
+                    {{entry.team}}
+                  </button>
                 </td>
                 <td>{{entry.w}}</td>
                 <td>{{entry.l}}</td>
                 <td>{{entry.wL}}</td>
-                <td>{{entry.gb}}</td>
                 <td>{{entry.pw}}</td>
                 <td>{{entry.pl}}</td>
                 <td>{{entry.psg}}</td>
@@ -76,13 +77,14 @@
           <ng-template #all>
             <td>{{this.rank}}</td>
             <td>
-              <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
-              {{entry.team}}
+              <button type="button" class="btn btn-dark btn-row text-left" (click)="this.teamDetails(this.entry)">
+                <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
+                {{entry.team}}
+              </button>
             </td>
             <td>{{entry.w}}</td>
             <td>{{entry.l}}</td>
             <td>{{entry.wL}}</td>
-            <td>{{entry.gb}}</td>
             <td>{{entry.pw}}</td>
             <td>{{entry.pl}}</td>
             <td>{{entry.psg}}</td>
