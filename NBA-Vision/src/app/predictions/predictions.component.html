@@ -6,18 +6,19 @@
     </div>
 
       <div>
-      <button (click)="nextGame('back')" class="btn"  > <i class="fa fa-arrow-circle-left fa-2x arrow"></i></button> 
-      <button (click)="nextGame('next')" class="btn"  ><i class="fa fa-arrow-circle-right fa-2x arrow"></i></button> 
+        <button  (click)="nextGame('back')" class="btn"  > <i class="fa fa-arrow-circle-left fa-2x arrow" aria-label="Go to previous day"></i></button>
+        <button  (click)="nextGame('next')" class="btn"  ><i class="fa fa-arrow-circle-right fa-2x arrow" aria-label="Go to next day"></i></button>
       <p></p>
       </div>
 
       <div>
         <img #loading src="../../assets/loading.gif" alt="loading"  width="100" />
       </div>
-      
+
       <div class="fontChange">
-        <button (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow"></i></button>
-      <button (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow"></i></button>
+        <button id="zBtn" (click)="this.navHome()" class="btn" style="color: white"><i class="fa fa-home" aria-label="Home"></i></button>
+        <button id="zBtn" (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+        <button id="zBtn" (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
       </div>
         <div>
         <table border="1" class="table table-dark table-striped" id="predTbl" #predTbl>
@@ -39,7 +40,7 @@
           </tr>
           <tr>
             <th>Three Pointers Made</th>
-            <td>{{TPM}}</td> 
+            <td>{{TPM}}</td>
             <td>{{TPM2}}</td>
           </tr>
           <tr>
@@ -115,4 +116,3 @@
       </div>
 
   </div>
-  

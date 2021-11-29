@@ -20,3 +20,20 @@
   border: 0 !important;
   margin: 0;
 }
+:focus {
+  background-color: var(--highlight-colour);
+  color: black;
+}
+.fontChange {
+  position:absolute;
+  top:0;
+  right:0;
+  font-size :30px;
+}
+.arrow {
+  color: white;
+}
+
+.msg {
+  font-size: 40px;
+}

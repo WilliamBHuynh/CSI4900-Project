@@ -1,11 +1,19 @@
 <ng-container *ngIf="this.scheduled; else request">
-  <div style="color: white">
-    This game is currently scheduled. Please try again later to view box scores.
+  <div style="color: white" align="middle">
+    <button appAutoFocus type="button" class="btn btn-light" aria-label="This game is currently scheduled. Please try again later to view box scores. Press enter to go back">
+      <label aria-hidden="true" style="color: black" class="msg">
+        This game is currently scheduled. Please try again later to view box scores. Press enter to go back.
+      </label>
+    </button>
   </div>
 </ng-container>
 <ng-template #error>
-  <div style="color: white">
-   The box score data failed to load. Please try again later.
+  <div style="color: white" align="middle">
+    <button appAutoFocus type="button" class="btn btn-light" aria-label="The box score data failed to load. Please try again later.">
+      <label aria-hidden="true" style="color: black" class="msg">
+        The box score data failed to load. Please try again later.
+      </label>
+    </button>
   </div>
 </ng-template>
 <ng-template #request>
@@ -13,13 +21,26 @@
     <div>
       <ng-container *ngIf="this.params != ''">
         <div align="center">
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-dark" (click)="this.clickHomeTeam()" appAutoFocus>{{this.homeTeamAbv}}</button>
-            <button type="button" class="btn btn-dark" (click)="this.clickAwayTeam()">{{this.awayTeamAbv}}</button>
+          <div class="pb-3" aria-hidden="true">
+            <h1>
+              Box score
+            </h1>
           </div>
-          <div class="ml-5 mr-5 mb-5">
-            <table class="table table-dark table-hover">
-              <thead class="thead-light">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-dark" (click)="this.clickHomeTeam()" appAutoFocus attr.aria-label="{{this.homeTeam}}">
+              <label aria-hidden="true">{{this.homeTeamAbv}}</label></button>
+            <button type="button" class="btn btn-dark" (click)="this.clickAwayTeam()" attr.aria-label="{{this.awayTeam}}">
+              <label aria-hidden="true">{{this.awayTeamAbv}}</label>
+            </button>
+          </div>
+          <div class="fontChange">
+            <button id='zBtn' (click)="this.navGames()" class="btn" style="color: white"><i class="fa fa-chevron-circle-left" aria-label="Back"></i></button>
+            <button id='zBtn' (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+            <button id='zBtn' (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
+          </div>
+          <div class="ml-5 mr-5">
+            <table class="table table-dark mb-0" #boxscore id="boxscore">
+              <thead class="thead-light" aria-hidden="true">
               <tr>
                 <th scope="col">PLAYER</th>
                 <th scope="col">MP</th>
@@ -48,7 +69,11 @@
                 <tr *ngFor="let entry of this.entries">
                   <ng-container *ngIf="this.selectedTeam == this.homeTeamAbv; else awayTeam">
                     <ng-container *ngIf="entry.team == this.homeTeamAbv">
-                      <td>{{entry.player}}</td>
+                      <td>
+                        <button type="button" class="btn btn-dark text-left" (click)="this.playerDetails(entry)">
+                          {{entry.player}}
+                        </button>
+                      </td>
                       <td>{{entry.mp}}</td>
                       <td>{{entry.pts}}</td>
                       <td>{{entry.fg}}</td>
@@ -72,7 +97,11 @@
                   </ng-container>
                   <ng-template #awayTeam>
                     <ng-container *ngIf="entry.team == this.awayTeamAbv">
-                      <td>{{entry.player}}</td>
+                      <td>
+                        <button type="button" class="btn btn-dark text-left" (click)="this.playerDetails(entry)">
+                          {{entry.player}}
+                        </button>
+                      </td>
                       <td>{{entry.mp}}</td>
                       <td>{{entry.pts}}</td>
                       <td>{{entry.fg}}</td>

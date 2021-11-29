@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { HttpErrorResponse } from '@angular/common/http';
 import {GameService} from "../service/game.service";
 import { Observable } from 'rxjs';
-import { DOCUMENT } from '@angular/common'; 
+import { DOCUMENT } from '@angular/common';
 import { ScheduleEntry } from '../schedule/schedule-entry';
 import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
   selector: 'app-predictions',
   templateUrl: './predictions.component.html',
   styleUrls: ['./predictions.component.css']
-  
+
 })
 export class PredictionsComponent implements OnInit {
   private predData: any;
@@ -62,11 +62,11 @@ export class PredictionsComponent implements OnInit {
   fontSize = 20;
   @ViewChild('predTbl', { static: true }) predTbl: ElementRef;
   @ViewChild('loading', { static: true }) loading: ElementRef;
-  
+
   i=0;
 
   constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) {
-    
+
    }
 
 
@@ -82,38 +82,38 @@ export class PredictionsComponent implements OnInit {
 
 		this.team1 = this.unNormalizeName(+this.service.predData.team[i])
         this.team2 = this.unNormalizeName(+this.service.predData.team2[i])
-        this.FGM  = this.service.predData.FGM[i] 
-        this.FGA  = this.service.predData.FGA[i] 
-        this.TPM  = this.service.predData.TPM[i] 
+        this.FGM  = this.service.predData.FGM[i]
+        this.FGA  = this.service.predData.FGA[i]
+        this.TPM  = this.service.predData.TPM[i]
         this.TPA  = this.service.predData.TPA[i]
         this.FTM  = this.service.predData.FTM[i]
-        this.FTA  = this.service.predData.FTA[i] 
-        this.OR  = this.service.predData.OR[i] 
-        this.DR  = this.service.predData.DR[i] 
+        this.FTA  = this.service.predData.FTA[i]
+        this.OR  = this.service.predData.OR[i]
+        this.DR  = this.service.predData.DR[i]
         this.AST  = this.service.predData.AS[i]
         this.STL = this.service.predData.STL[i]
-        this.BLK  = this.service.predData.BLK[i] 
-        this.TO  = this.service.predData.TO[i] 
-        this.PF  = this.service.predData.PF[i] 
+        this.BLK  = this.service.predData.BLK[i]
+        this.TO  = this.service.predData.TO[i]
+        this.PF  = this.service.predData.PF[i]
         this.LOC  = ((this.service.predData.LOC[i]==1) ? 'Home' : 'Away');
-        this.ELO  = this.service.predData.ELO[i] 
+        this.ELO  = this.service.predData.ELO[i]
         this.DEF = (this.service.predData.DEF[i]*100).toString()
 
-        this.FGM2  = this.service.predData.FGM2[i] 
-        this.FGA2  = this.service.predData.FGA2[i] 
-        this.TPM2  = this.service.predData.TPM2[i] 
+        this.FGM2  = this.service.predData.FGM2[i]
+        this.FGA2  = this.service.predData.FGA2[i]
+        this.TPM2  = this.service.predData.TPM2[i]
         this.TPA2  = this.service.predData.TPA2[i]
         this.FTM2  = this.service.predData.FTM2[i]
-        this.FTA2  = this.service.predData.FTA2[i] 
-        this.OR2  = this.service.predData.OR2[i] 
-        this.DR2  = this.service.predData.DR2[i] 
+        this.FTA2  = this.service.predData.FTA2[i]
+        this.OR2  = this.service.predData.OR2[i]
+        this.DR2  = this.service.predData.DR2[i]
         this.AST2  = this.service.predData.AS2[i]
         this.STL2 = this.service.predData.STL2[i]
-        this.BLK2  = this.service.predData.BLK2[i] 
-        this.TO2  = this.service.predData.TO2[i] 
-        this.PF2  = this.service.predData.PF2[i] 
+        this.BLK2  = this.service.predData.BLK2[i]
+        this.TO2  = this.service.predData.TO2[i]
+        this.PF2  = this.service.predData.PF2[i]
         this.LOC2  = ((this.service.predData.LOC2[i]==1) ? 'Home' : 'Away');
-        this.ELO2  = this.service.predData.ELO2[i] 
+        this.ELO2  = this.service.predData.ELO2[i]
         this.DEF2 = (this.service.predData.DEF2[i]*100).toString()
 
         this.Outcome = this.service.predData.OUTCOME[i]
@@ -123,7 +123,7 @@ export class PredictionsComponent implements OnInit {
       }else{
         this.Outcome=this.team2
       }
-      
+
   }
 
 
@@ -224,12 +224,12 @@ export class PredictionsComponent implements OnInit {
 
     operator === '+' ? this.fontSize+=5 : this.fontSize-=5;
     (this.predTbl.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
-    
+
   }
 
 
   getPredictions(){
-    
+
     if (this.service.predData==undefined){
 
     this.service.getPrediction().subscribe(
@@ -249,28 +249,32 @@ export class PredictionsComponent implements OnInit {
       this.getGame(this.i);
       (this.predTbl.nativeElement as HTMLParagraphElement).style.visibility = `visible`;
     }
-    
+
 
   }
-  
+
   nextGame(increment:string){
 
-    
+
     length = Object.keys(this.service.predData.team).length
 
     if (increment == "next"){
       this.i += 1
       if (this.i == length){
         this.i=0;
-      } 
+      }
     }else if (increment=="back"){
       this.i -= 1
       if (this.i == -1){
         this.i=length-1;
-      } 
+      }
     }
 
     this.getGame(this.i)
+  }
+
+  navHome(): void {
+    this.router.navigate(['/']);
   }
 
 
