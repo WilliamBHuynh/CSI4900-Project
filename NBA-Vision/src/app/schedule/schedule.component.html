@@ -1,16 +1,16 @@
 <div align="center">
   <div>
-    <h1>
-      Schedule
+    <h1 aria-hidden="true">
+      Games
     </h1>
   </div>
   <div class="pb-3">
-      <button aria-label="Go to previous day" class="btn" (click)="goBackDay()">
+      <button aria-label="Go to previous day" class="btn" (dblclick)="goBackDay()">
         <i class="fa fa-arrow-circle-left fa-2x arrow"></i>
       </button>
-    <label class="date">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1])
+    <label class="date" aria-hidden="true">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1])
       + " " + this.today.toISOString().split('T', 1)[0].split("-")[2]}}</label>
-    <button aria-label="Go to next day" class="btn" (click)="goForwardDay()">
+    <button aria-label="Go to next day" class="btn" (dblclick)="goForwardDay()">
       <i class="fa fa-arrow-circle-right fa-2x arrow"></i>
     </button>
   </div>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="fontChange">
-    <button (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow"></i></button>
-    <button (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow"></i></button>
+    <button (dblclick)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+    <button (dblclick)="changeFont('+')" class="btn"><i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
   </div>
 </div>

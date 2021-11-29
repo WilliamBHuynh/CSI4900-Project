@@ -7,7 +7,7 @@ import {StandingsComponent} from "./standings/standings.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'schedule', component: ScheduleComponent},
+  {path: 'games', component: ScheduleComponent},
   {path: 'standings', component: StandingsComponent},
   {path: 'predictions', component: PredictionsComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},

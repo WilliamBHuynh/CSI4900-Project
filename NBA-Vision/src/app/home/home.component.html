@@ -1,23 +1,23 @@
 <div align="center">
-  <div class="header" >
+  <div class="header" aria-hidden="true">
     <h1>
       NBA Vision
     </h1>
     <h2 class="slogan">Your insights whenever and however</h2>
   </div>
   <div>
-    <div class="nav-elem">
-      <label [routerLink]="['/schedule']" #navElemS><u>S</u>chedule</label>
+    <div>
+      <button class="btnNav" (dblclick)="this.navGames()" aria-label="Games"><label aria-hidden="true"><u>G</u>ames</label></button>
     </div>
-    <div class="nav-elem">
-      <label [routerLink]="['/standings']" #navElemSt >S<u>t</u>andings</label>
+    <div>
+      <button class="btnNav" (dblclick)="this.navStandings()" aria-label="Standings"><label aria-hidden="true"><u>S</u>tandings</label></button>
     </div>
-    <div class="nav-elem">
-      <label [routerLink]="['/predictions']" #navElemP><u>P</u>redictions</label>
+    <div>
+      <button class="btnNav" (dblclick)="this.navPredictions()" aria-label="Predictions"><label aria-hidden="true"><u>P</u>redictions</label></button>
     </div>
     <div class="fontChange">
-    <button id='btnFontMinus' (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow"></i></button>
-    <button id='btnFontPlus' (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow"></i></button>
+    <button id='btnFontMinus' (dblclick)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
+    <button id='btnFontPlus' (dblclick)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
   </div>
   </div>
 </div>
