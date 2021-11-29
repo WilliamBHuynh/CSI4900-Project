@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ScheduleEntry} from "../schedule-entry";
 import Utils from "../../utils.";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {BoxscoreComponent} from "../boxscore/boxscore.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-schedule-element',
@@ -13,7 +12,7 @@ export class ScheduleElementComponent implements OnInit {
   @Input() entry: ScheduleEntry;
   teamHomeAbv: string;
   teamAwayAbv: string;
-  constructor(public modalService: NgbModal) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.teamHomeAbv = Utils.convertTeamName(this.entry.homeTeamName);
@@ -27,15 +26,13 @@ export class ScheduleElementComponent implements OnInit {
     return teams + " " + score;
   }
 
-  open() {
-    const modalRef = this.modalService.open(BoxscoreComponent, {size: "xl"});
+  open(): void {
     let dateEntry = this.entry.date +'';
     const scheduled = this.entry.homeTeamScore == undefined;
     const teamHomeAbvUpper = this.teamHomeAbv.toUpperCase();
     const teamAwayAbvUpper = this.teamAwayAbv.toUpperCase();
-    modalRef.componentInstance.params = dateEntry.substring(0, 10) + '/' + teamHomeAbvUpper + '/' + teamAwayAbvUpper + '/';
-    modalRef.componentInstance.scheduled = scheduled;
-    modalRef.componentInstance.homeTeamAbv = teamHomeAbvUpper;
-    modalRef.componentInstance.awayTeamAbv = teamAwayAbvUpper;
+    this.router.navigateByUrl('/boxscores', { state: { scheduled: scheduled,
+        params: dateEntry.substring(0, 10) + '/' + teamHomeAbvUpper + '/' + teamAwayAbvUpper + '/',
+        homeTeamAbv: teamHomeAbvUpper, awayTeamAbv: teamAwayAbvUpper} });
   }
 }

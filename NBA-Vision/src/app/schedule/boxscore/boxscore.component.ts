@@ -1,5 +1,4 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {GameService} from "../../service/game.service";
 import {Subscription} from "rxjs";
 import {BoxscoreEntry} from "../../boxscore/boxscore-entry";
@@ -19,9 +18,14 @@ export class BoxscoreComponent implements OnInit, OnDestroy {
   entries: BoxscoreEntry[] = [];
   subscription: Subscription;
   selectedTeam: string;
-  constructor(public activeModal: NgbActiveModal, public service: GameService) { }
+  constructor(public service: GameService) { }
 
   ngOnInit(): void {
+    const state = history.state;
+    this.scheduled = state.scheduled;
+    this.params = state.params;
+    this.homeTeamAbv = state.homeTeamAbv;
+    this.awayTeamAbv = state.awayTeamAbv;
     this.selectedTeam = this.homeTeamAbv;
     this.subscription = this.service.getBoxScores(this.params).subscribe((data: any) => {
       this.res = JSON.parse(data);

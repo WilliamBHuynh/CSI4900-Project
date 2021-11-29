@@ -1,28 +1,18 @@
 <ng-container *ngIf="this.scheduled; else request">
-  <div class="alert alert-info alert-dismissible" role="dialog">
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">
-      <span aria-hidden="true">&times;</span></button>
-      This game is currently scheduled. Please try again later to view box scores.
+  <div style="color: white">
+    This game is currently scheduled. Please try again later to view box scores.
   </div>
 </ng-container>
 <ng-template #error>
-  <div class="alert alert-danger alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="activeModal.close('Close click')">
-      <span aria-hidden="true">&times;</span></button>
-    <strong>Error:</strong> The box score data failed to load. Please try again later.
+  <div style="color: white">
+   The box score data failed to load. Please try again later.
   </div>
 </ng-template>
 <ng-template #request>
   <ng-container *ngIf="!this.err; else error">
     <div>
-      <div class="modal-header">
-        <h4 class="modal-title">Box score</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <ng-container *ngIf="this.params != ''">
-        <div class="modal-body" align="center">
+        <div align="center">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-dark" (click)="this.clickHomeTeam()" appAutoFocus>{{this.homeTeamAbv}}</button>
             <button type="button" class="btn btn-dark" (click)="this.clickAwayTeam()">{{this.awayTeamAbv}}</button>
@@ -111,9 +101,6 @@
           </div>
         </div>
       </ng-container>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
-      </div>
     </div>
   </ng-container>
 </ng-template>
