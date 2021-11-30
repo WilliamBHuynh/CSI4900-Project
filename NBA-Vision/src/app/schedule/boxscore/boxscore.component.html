@@ -1,24 +1,36 @@
 <ng-container *ngIf="this.scheduled; else request">
-  <div style="color: white" align="middle">
-    <button appAutoFocus type="button" class="btn btn-light" aria-label="This game is currently scheduled. Please try again later to view box scores. Press enter to go back">
-      <label aria-hidden="true" style="color: black" class="msg">
-        This game is currently scheduled. Please try again later to view box scores. Press enter to go back.
-      </label>
+  <div align="center">
+    <div class="pb-3" aria-hidden="true">
+      <h1>
+        Box score not available.
+      </h1>
+    </div>
+    <div class="pb-3">
+      <label class="msg" aria-hidden="true">Game is currently scheduled. Please try again later.</label>
+    </div>
+    <button appAutoFocus type="button" class="btn" aria-label="Return to games page." style="color: white" (click)="this.navGames()">
+      <i class="fa fa-chevron-circle-left fa-5x" aria-label="Back"></i>
     </button>
   </div>
 </ng-container>
 <ng-template #error>
-  <div style="color: white" align="middle">
-    <button appAutoFocus type="button" class="btn btn-light" aria-label="The box score data failed to load. Please try again later.">
-      <label aria-hidden="true" style="color: black" class="msg">
-        The box score data failed to load. Please try again later.
-      </label>
+  <div align="center">
+    <div class="pb-3" aria-hidden="true">
+      <h1>
+        Box score not available.
+      </h1>
+    </div>
+    <div class="pb-3">
+      <label class="msg" aria-hidden="true">An error was encountered. Please try again later.</label>
+    </div>
+    <button appAutoFocus type="button" class="btn" aria-label="Return to games page." style="color: white" (click)="this.navGames()">
+      <i class="fa fa-chevron-circle-left fa-5x" aria-label="Back"></i>
     </button>
   </div>
 </ng-template>
 <ng-template #request>
   <ng-container *ngIf="!this.err; else error">
-    <div>
+    <div id="boxScore" #boxScore>
       <ng-container *ngIf="this.params != ''">
         <div align="center">
           <div class="pb-3" aria-hidden="true">
@@ -26,7 +38,7 @@
               Box score
             </h1>
           </div>
-          <div class="btn-group" role="group">
+          <div class="btn-group" role="group" #buttons>
             <button type="button" class="btn btn-dark" (click)="this.clickHomeTeam()" appAutoFocus attr.aria-label="{{this.homeTeam}}">
               <label aria-hidden="true">{{this.homeTeamAbv}}</label></button>
             <button type="button" class="btn btn-dark" (click)="this.clickAwayTeam()" attr.aria-label="{{this.awayTeam}}">
@@ -39,7 +51,7 @@
             <button id='zBtn' (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
           </div>
           <div class="ml-5 mr-5">
-            <table class="table table-dark mb-0" #boxscore id="boxscore">
+            <table class="table table-dark mb-0">
               <thead class="thead-light" aria-hidden="true">
               <tr>
                 <th scope="col">PLAYER</th>

@@ -10,10 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  shortCutsMsg = "Use alt key plus the following keys. " +
-                "G key for games, S key for standings and P key for predictions. " +
-                "On any screen, " +
-                "Use plus and minus keys to zoom in and out. ";
+  shortCutsMsg = "Hold the alt key and the following key for keyboard shortcuts: " +
+                "G for games, S for standings, P for predictions. " +
+                "Minus to zoom out, and plus to zoom in.";
   constructor(private announcer: LiveAnnouncer,private router: Router) {}
 
   ngOnInit(): void {
@@ -29,9 +28,6 @@ export class HomeComponent implements OnInit {
   @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
     if (e.keyCode == 71){
       this.navGames();
-    }
-    else if (e.keyCode == 82) {
-      this.announcer.announce(this.shortCutsMsg);
     }
     else if (e.keyCode == 83){
       this.navStandings();

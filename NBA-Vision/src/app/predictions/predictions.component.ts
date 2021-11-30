@@ -19,6 +19,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 })
 export class PredictionsComponent implements OnInit {
+  shortcutMsg = "Hold the alt key and the following key for keyboard shortcuts: " +
+    "B to go back a day, N to go next day, H to return to home page";
   private predData: any;
   title = "";
   team1 = "";
@@ -72,7 +74,7 @@ export class PredictionsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.announcer.announce("Use shift plus arrow keys to move through days. Add and subtract keys to zoom in and out. Control plus left arrow key to return home")
+    this.announcer.announce("Predictions page. " + this.shortcutMsg);
     this.getPredictions();
 
   }
@@ -196,13 +198,13 @@ export class PredictionsComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
 
-    if (e.shiftKey && e.keyCode == 39) {
+    if (e.keyCode == 78) {
       this.nextGame('next')
     }
-    else if (e.ctrlKey && e.keyCode == 37){
-      this.router.navigate(['/']);
+    else if (e.keyCode == 72){
+      this.navHome();
     }
-    else if (e.shiftKey && e.keyCode == 37){
+    else if (e.keyCode == 66){
       this.nextGame('back')
     }
     else if (e.keyCode == 187){
@@ -227,6 +229,9 @@ export class PredictionsComponent implements OnInit {
 
   }
 
+  announcePredictedWinner(winner: string, team1: string, team2: string): void {
+    this.announcer.announce("The predicted winner of " + team1 + " versus " + team2 + " is " + winner);
+  }
 
   getPredictions(){
 

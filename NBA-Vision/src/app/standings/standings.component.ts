@@ -21,9 +21,9 @@ export class StandingsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   fontSize =20;
   fontSizeB =1;
-  shortCutsMsg = "Use alt key plus the following keys. " +
-                "A key for all conferences, E key for eastern conference, and W for western conference. " +
-                "Use control key plus left arrow key to return home";
+  shortCutsMsg = "Hold the alt key and the following key for keyboard shortcuts: " +
+                "A for all conferences, E for eastern conference, W for western conference, and H to return to home page. ";
+
   @ViewChild('standings', { static: true }) standings: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
@@ -63,7 +63,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.refreshStandings();
     this.announcer.announce(
-      "Standings for all conferences. " + this.shortCutsMsg);
+      "Standings page. " + this.shortCutsMsg);
   }
 
   ngOnDestroy(): void {
@@ -129,7 +129,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
     if (e.keyCode == 69) {
       this.clickEast()
     }
-    else if (e.ctrlKey && e.keyCode == 37){
+    else if (e.keyCode == 72){
       this.router.navigate(['/']);
     }
     else if (e.keyCode == 65){
@@ -143,9 +143,6 @@ export class StandingsComponent implements OnInit, OnDestroy {
     }
     else if (e.keyCode == 189){
       this.changeFont('-')
-    }
-    else if (e.keyCode == 82) {
-      this.announcer.announce(this.shortCutsMsg);
     }
   }
 }

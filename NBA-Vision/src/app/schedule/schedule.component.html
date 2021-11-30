@@ -5,7 +5,7 @@
     </h1>
   </div>
   <div class="pb-3">
-      <button aria-label="Go to previous day" class="btn" (click)="goBackDay()" appAutoFocus>
+      <button aria-label="Go back a day" class="btn" (click)="goBackDay()" appAutoFocus>
         <i class="fa fa-arrow-circle-left fa-2x arrow"></i>
       </button>
     <label class="date" aria-hidden="true">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1])

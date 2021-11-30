@@ -6,14 +6,14 @@
     <h2 class="slogan">Your insights whenever and however</h2>
   </div>
   <div>
-    <div>
-      <button class="btnNav" (click)="this.navGames()" aria-label="Games" appAutoFocus><label aria-hidden="true"><u>G</u>ames</label></button>
+    <div class="container">
+      <button class="btnNav" (click)="this.navGames()" aria-label="Games" appAutoFocus><label aria-hidden="true" #navElemS><u>G</u>ames</label></button>
     </div>
-    <div>
-      <button class="btnNav" (click)="this.navStandings()" aria-label="Standings"><label aria-hidden="true"><u>S</u>tandings</label></button>
+    <div class="container">
+      <button class="btnNav" (click)="this.navStandings()" aria-label="Standings"><label aria-hidden="true" #navElemSt><u>S</u>tandings</label></button>
     </div>
-    <div>
-      <button class="btnNav" (click)="this.navPredictions()" aria-label="Predictions"><label aria-hidden="true"><u>P</u>redictions</label></button>
+    <div class="container">
+      <button class="btnNav" (click)="this.navPredictions()" aria-label="Predictions"><label aria-hidden="true" #navElemP><u>P</u>redictions</label></button>
     </div>
     <div class="fontChange">
       <button id='zBtn' (click)="changeFont('-')" class="btn"><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>

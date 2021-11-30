@@ -6,7 +6,7 @@
     </div>
 
       <div>
-        <button  (click)="nextGame('back')" class="btn"  > <i class="fa fa-arrow-circle-left fa-2x arrow" aria-label="Go to previous day"></i></button>
+        <button appAutoFocus (click)="nextGame('back')" class="btn"  > <i class="fa fa-arrow-circle-left fa-2x arrow" aria-label="Go to previous day"></i></button>
         <button  (click)="nextGame('next')" class="btn"  ><i class="fa fa-arrow-circle-right fa-2x arrow" aria-label="Go to next day"></i></button>
       <p></p>
       </div>
@@ -20,14 +20,20 @@
         <button id="zBtn" (click)="changeFont('-')" class="btn" ><i class="fa fa-search-minus arrow" aria-label="Zoom out"></i></button>
         <button id="zBtn" (click)="changeFont('+')" class="btn"> <i class="fa fa-search-plus arrow" aria-label="Zoom in"></i></button>
       </div>
-        <div>
+        <div class="ml-5 mr-5">
         <table border="1" class="table table-dark table-striped" id="predTbl" #predTbl>
           <caption>{{team1}} versus {{team2}} stats and predicted outcome. {{Outcome}} are expected to win this game</caption>
-          <tr>
-            <td></td>
-            <th id="team1">{{team1}}</th>
-            <th id="team2">{{team2}}</th>
-          </tr>
+          <thead class="thead-light" aria-hidden="true">
+            <tr>
+              <th>
+                <button type="button" class="btn-row text-left" (click)="this.announcePredictedWinner(Outcome, team1, team2)" aria-label="Predicted winner">
+                  <label><u>Predicted winner</u></label>
+                </button>
+              </th>
+              <th id="team1">{{team1}}</th>
+              <th id="team2">{{team2}}</th>
+            </tr>
+          </thead>
           <tr>
             <th>Field Goals Made</th>
             <td>{{FGM}}</td>
@@ -111,8 +117,8 @@
           <tr>
             <th>Predicted Winner</th>
             <td>{{Outcome}}</td>
+            <td></td>
           </tr>
         </table>
       </div>
-
   </div>

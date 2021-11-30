@@ -16,8 +16,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   today = new Date();
   entries: ScheduleEntry[] = [];
-  shortcutMsg = ". Use shift plus arrow keys to move through days. " +
-                "Use control key plus left arrow key to return home.";
+  shortcutMsg = ". Hold the alt key and the following key for keyboard shortcuts: " +
+                "B to go back a day, N to go next day, H to return to home page";
+
   @ViewChild('entryContainer', { static: true }) entry: ElementRef;
   constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) { }
   fontSize = 1;
@@ -41,7 +42,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.refreshSchedule();
     this.announcer.announce(
       "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
-      " " + this.today.getDate() + this.shortcutMsg);
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2] + this.shortcutMsg);
   }
 
   ngOnDestroy(): void {
@@ -88,7 +89,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   announceDate(): void {
     this.announcer.announce(
       "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
-      " " + this.today.getDate());
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2]);
   }
 
   navHome(): void {
@@ -159,18 +160,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
 
-    if (e.shiftKey && e.keyCode == 39) {
+    if (e.keyCode == 78) {
       this.goForwardDay();
     }
-    else if (e.ctrlKey && e.keyCode == 37){
+    else if (e.keyCode == 72){
       this.router.navigate(['/']);
     }
-    else if (e.keyCode == 82) {
-      this.announcer.announce(
-        "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
-        " " + this.today.getDate() + this.shortcutMsg);
-    }
-    else if (e.shiftKey && e.keyCode == 37){
+    else if (e.keyCode == 66){
       this.goBackDay();
     }
     else if (e.keyCode == 187){

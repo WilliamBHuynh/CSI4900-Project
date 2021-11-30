@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GameService} from "../../service/game.service";
 import {Subscription} from "rxjs";
 import {BoxscoreEntry} from "../../boxscore/boxscore-entry";
@@ -25,7 +25,7 @@ export class BoxscoreComponent implements OnInit, OnDestroy {
   selectedTeam: string;
   fontSize =20;
   fontSizeB =1;
-  @ViewChild('boxscore', { static: true }) boxscore: ElementRef;
+  @ViewChild('boxScore', { static: true }) boxScore: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
   changeFont(operator:any) {
@@ -53,7 +53,7 @@ export class BoxscoreComponent implements OnInit, OnDestroy {
       this.fontSizeB -=.25;
     }
 
-    (this.boxscore.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
+    (this.boxScore.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
     (this.buttons.nativeElement as HTMLParagraphElement).style.transform = `scale(`+this.fontSizeB+')';
     (this.buttons.nativeElement as HTMLParagraphElement).style.transformOrigin= 'bottom';
 
@@ -82,9 +82,15 @@ export class BoxscoreComponent implements OnInit, OnDestroy {
         this.addEntry(newEntry);
       }
       this.err = false;
+      this.announcer.announce("Box scores for " + this.homeTeam + " versus " + this.awayTeam + ". Hold alt key and g to return to games page.")
     },
       (error: any) => {
-        this.err = true;
+        if (this.scheduled) {
+          this.announcer.announce("Game is currently scheduled. Please try again later.");
+        } else {
+          this.err = true;
+          this.announcer.announce("An error was encountered. Please try again later.")
+        }
     });
   }
 
@@ -113,5 +119,17 @@ export class BoxscoreComponent implements OnInit, OnDestroy {
 
   clickAwayTeam(): void {
     this.selectedTeam = this.awayTeamAbv;
+  }
+
+  @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
+    if (e.keyCode == 71){
+      this.navGames();
+    }
+    else if (e.keyCode == 187){
+      this.changeFont('+');
+    }
+    else if (e.keyCode == 189){
+      this.changeFont('-');
+    }
   }
 }
