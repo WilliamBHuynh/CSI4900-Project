@@ -21,6 +21,9 @@ export class StandingsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   fontSize =20;
   fontSizeB =1;
+  shortCutsMsg = "Hold the alt key and the following key for keyboard shortcuts: " +
+                "A for all conferences, E for eastern conference, W for western conference, and H to return to home page. ";
+
   @ViewChild('standings', { static: true }) standings: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
@@ -59,12 +62,16 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.refreshStandings();
-    this.announcer.announce("Use A , E , and W keys to move through confrences. Add and subtract keys to zoom in and out. Control plus left arrow key to return home")
-
+    this.announcer.announce(
+      "Standings page. " + this.shortCutsMsg);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  navHome(): void {
+    this.router.navigate(['/']);
   }
 
   refreshStandings(): void {
@@ -85,6 +92,11 @@ export class StandingsComponent implements OnInit, OnDestroy {
 
   convertTeamName(name: string): string {
     return Utils.convertTeamName(name);
+  }
+
+  teamDetails(entry: StandingEntry) {
+    this.announcer.announce("Wins: " + entry.w + ", lost: " + entry.l + ", win, lost percentage: " + entry.wL + ", Pythagorean wins: " + entry.pw + ", Pythagorean lost: " + entry.pl+ ", Points scored per game: " +
+      entry.psg+ ", Points allowed per game: " + entry.pag);
   }
 
   clickAll(): void {
@@ -117,7 +129,7 @@ export class StandingsComponent implements OnInit, OnDestroy {
     if (e.keyCode == 69) {
       this.clickEast()
     }
-    else if (e.ctrlKey && e.keyCode == 37){
+    else if (e.keyCode == 72){
       this.router.navigate(['/']);
     }
     else if (e.keyCode == 65){

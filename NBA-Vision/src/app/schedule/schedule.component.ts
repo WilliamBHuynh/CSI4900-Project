@@ -16,6 +16,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   today = new Date();
   entries: ScheduleEntry[] = [];
+  shortcutMsg = ". Hold the alt key and the following key for keyboard shortcuts: " +
+                "B to go back a day, N to go next day, H to return to home page";
+
   @ViewChild('entryContainer', { static: true }) entry: ElementRef;
   constructor(private service: GameService,private router: Router,private announcer: LiveAnnouncer) { }
   fontSize = 1;
@@ -37,7 +40,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.refreshSchedule();
-    this.announcer.announce("Use shift plus arrow keys to move through days. Add and subtract keys to zoom in and out. Control plus left arrow key to return home")
+    this.announcer.announce(
+      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2] + this.shortcutMsg);
   }
 
   ngOnDestroy(): void {
@@ -67,16 +72,28 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.today.setDate(this.today.getDate() - 1);
     this.entries = [];
     this.renderSchedule();
+    this.announceDate();
   }
 
   goForwardDay(): void {
     this.today.setDate(this.today.getDate() + 1);
     this.entries = [];
     this.renderSchedule();
+    this.announceDate();
   }
 
   addEntry(entry: ScheduleEntry): void {
     this.entries.push(entry);
+  }
+
+  announceDate(): void {
+    this.announcer.announce(
+      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2]);
+  }
+
+  navHome(): void {
+    this.router.navigate(['/']);
   }
 
   convertMonth(monthNum: string): string {
@@ -110,22 +127,53 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
   }
 
+  convertFullMonth(monthNum: string): string {
+    switch(monthNum) {
+      case "1":
+        return "January";
+      case "2":
+        return "February";
+      case "3":
+        return "March";
+      case "4":
+        return "April";
+      case "5":
+        return "May";
+      case "6":
+        return "June";
+      case "7":
+        return "July";
+      case "8":
+        return "August";
+      case "9":
+        return "September";
+      case "10":
+        return "October";
+      case "11":
+        return "November";
+      case "12":
+        return "December";
+      default:
+        return "Today";
+    }
+  }
+
   @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
 
-    if (e.shiftKey && e.keyCode == 39) {
-      this.goForwardDay()
+    if (e.keyCode == 78) {
+      this.goForwardDay();
     }
-    else if (e.ctrlKey && e.keyCode == 37){
+    else if (e.keyCode == 72){
       this.router.navigate(['/']);
     }
-    else if (e.shiftKey && e.keyCode == 37){
-      this.goBackDay()
+    else if (e.keyCode == 66){
+      this.goBackDay();
     }
     else if (e.keyCode == 187){
-      this.changeFont('+')
+      this.changeFont('+');
     }
     else if (e.keyCode == 189){
-      this.changeFont('-')
+      this.changeFont('-');
     }
   }
 }

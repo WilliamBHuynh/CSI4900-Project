@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PredictionsComponent } from './predictions/predictions.component';
 import { StandingsComponent } from './standings/standings.component';
 import { BoxscoreComponent } from './schedule/boxscore/boxscore.component';
+import { AutoFocusDirective } from './auto-focus.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BoxscoreComponent } from './schedule/boxscore/boxscore.component';
     PredictionsComponent,
     StandingsComponent,
     BoxscoreComponent,
+    AutoFocusDirective,
   ],
   imports: [
     HttpClientModule,

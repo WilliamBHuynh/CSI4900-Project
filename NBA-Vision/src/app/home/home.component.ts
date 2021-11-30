@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  shortCutsMsg = "Hold the alt key and the following key for keyboard shortcuts: " +
+                "G for games, S for standings, P for predictions. " +
+                "Minus to zoom out, and plus to zoom in.";
   constructor(private announcer: LiveAnnouncer,private router: Router) {}
 
   ngOnInit(): void {
-    this.announcer.announce("Please use the S key for schedule, T key for standings and P key for predictions. Use plus and minus keys to zoom in and out.");
+    this.announcer.announce(
+      "Home screen. " + this.shortCutsMsg);
   }
 
   fontSize = 48;
@@ -23,14 +26,14 @@ export class HomeComponent implements OnInit {
   @ViewChild('navElemSt', { static: true }) navElemSt: ElementRef;
 
   @HostListener('document:keydown', ['$event']) onKeyDown(e:any){
-    if (e.keyCode==83){
-      this.router.navigate(['/schedule']);
+    if (e.keyCode == 71){
+      this.navGames();
     }
-    else if (e.keyCode ==84){
-      this.router.navigate(['/standings']);
+    else if (e.keyCode == 83){
+      this.navStandings();
     }
     else if (e.keyCode == 80){
-      this.router.navigate(['/predictions']);
+      this.navPredictions();
     }
     else if (e.keyCode == 187){
       this.changeFont('+')
@@ -38,7 +41,18 @@ export class HomeComponent implements OnInit {
     else if (e.keyCode == 189){
       this.changeFont('-')
     }
-    
+  }
+
+  navGames(): void {
+    this.router.navigate(['/games']);
+  }
+
+  navStandings(): void {
+    this.router.navigate(['/standings']);
+  }
+
+  navPredictions(): void {
+    this.router.navigate(['/predictions']);
   }
 
   changeFont(operator:any) {
@@ -55,5 +69,4 @@ export class HomeComponent implements OnInit {
     (this.navElemSt.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
 
   }
-
 }

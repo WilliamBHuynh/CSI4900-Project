@@ -65,4 +65,70 @@ export default class Utils {
         return "";
     }
   }
+  static convertTeamAbv(name: string): string {
+    switch (name.toLowerCase()) {
+      case "bkn":
+        return "BROOKLYN NETS";
+      case "mil":
+        return "MILWAUKEE BUCKS";
+      case "bos":
+        return "BOSTON CELTICS";
+      case "cha":
+        return "CHARLOTTE HORNETS";
+      case "atl":
+        return "ATLANTA HAWKS";
+      case "chi":
+        return "CHICAGO BULLS";
+      case "cle":
+        return "CLEVELAND CAVALIERS";
+      case "dal":
+        return "DALLAS MAVERICKS";
+      case "den":
+        return "DENVER NUGGETS";
+      case "det":
+        return "DETROIT PISTONS";
+      case "gsw":
+        return "GOLDEN STATE WARRIORS";
+      case "hou":
+        return "HOUSTON ROCKETS";
+      case "ind":
+        return "INDIANA PACERS";
+      case "lac":
+        return "LOS ANGELES CLIPPERS";
+      case "lal":
+        return "LOS ANGELES LAKERS";
+      case "mem":
+        return "MEMPHIS GRIZZLIES";
+      case "mia":
+        return "MIAMI HEAT";
+      case "min":
+        return "MINNESOTA TIMBERWOLVES";
+      case "nop":
+        return "NEW ORLEANS PELICANS";
+      case "nyk":
+        return "NEW YORK KNICKS";
+      case "okc":
+        return "OKLAHOMA CITY THUNDER";
+      case "orl":
+        return "ORLANDO MAGIC";
+      case "phi":
+        return "PHILADELPHIA 76ERS";
+      case "phx":
+        return "PHOENIX SUNS";
+      case "por":
+        return "PORTLAND TRAIL BLAZERS";
+      case "sac":
+        return "SACRAMENTO KINGS";
+      case "sas":
+        return "SAN ANTONIO SPURS";
+      case "tor":
+        return "TORONTO RAPTORS";
+      case "uta":
+        return "UTAH JAZZ";
+      case "was":
+        return "WASHINGTON WIZARDS";
+      default:
+        return "";
+    }
+  }
 }
