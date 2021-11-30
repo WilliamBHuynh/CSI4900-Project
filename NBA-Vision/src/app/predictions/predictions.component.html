@@ -22,12 +22,11 @@
       </div>
         <div class="ml-5 mr-5">
         <table border="1" class="table table-dark table-striped" id="predTbl" #predTbl>
-          <caption>{{team1}} versus {{team2}} stats and predicted outcome. {{Outcome}} are expected to win this game</caption>
-          <thead class="thead-light" aria-hidden="true">
+          <thead class="thead-light">
             <tr>
               <th>
                 <button type="button" class="btn-row text-left" (click)="this.announcePredictedWinner(Outcome, team1, team2)" aria-label="Predicted winner">
-                  <label><u>Predicted winner</u></label>
+                  <label style="color: black"><b>Predicted winner</b></label>
                 </button>
               </th>
               <th id="team1">{{team1}}</th>
