@@ -37,7 +37,9 @@
 .btn:hover {
   background-color: var(--highlight-colour);
 }
-
+.btn:hover i {
+  color: black;
+}
 .btnNav {
   background-color: var(--main-bg-colour);
   font-size: 48px;
@@ -53,6 +55,10 @@
   background-color: var(--highlight-colour);
   color: black;
 }
+.btnNav:hover label{
+  background-color: var(--highlight-colour);
+  color: black;
+}
 
 .arrow {
   color: white;
@@ -61,3 +67,10 @@
 :focus {
   background-color: var(--highlight-colour);
 }
+:focus label{
+  color: black;
+}
+:focus i{
+  color: black;
+}
+

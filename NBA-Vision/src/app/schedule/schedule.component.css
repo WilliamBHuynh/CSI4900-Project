@@ -12,6 +12,9 @@
 .btn:hover {
   background-color: var(--highlight-colour);
 }
+.btn:hover i {
+  color: black;
+}
 #entry{
   transform: scale(1);
   transform-origin: top;
@@ -26,4 +29,7 @@
 
 :focus {
   background-color: var(--highlight-colour);
+}
+:focus i {
+  color: black;
 }

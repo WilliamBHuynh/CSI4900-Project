@@ -17,3 +17,6 @@
 .container:focus label{
   color: black;
 }
+label {
+  font-weight: bold;
+}
