@@ -40,7 +40,7 @@
               <td>
                 <button type="button" class="btn btn-dark btn-row text-left" (click)="this.teamDetails(this.entry)">
                   <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
-                  {{entry.team}}
+                  <label>{{entry.team}}</label>
                 </button>
               </td>
               <td>{{entry.w}}</td>
@@ -60,7 +60,7 @@
                 <td>
                   <button type="button" class="btn btn-dark btn-row text-left" (click)="this.teamDetails(this.entry)">
                     <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
-                    {{entry.team}}
+                    <label>{{entry.team}}</label>
                   </button>
                 </td>
                 <td>{{entry.w}}</td>
@@ -79,7 +79,7 @@
             <td>
               <button type="button" class="btn btn-dark btn-row text-left" (click)="this.teamDetails(this.entry)">
                 <img class="tableLogo" src="../../assets/logos/{{this.convertTeamName(entry.team)}}.png">
-                {{entry.team}}
+                <label>{{entry.team}}</label>
               </button>
             </td>
             <td>{{entry.w}}</td>

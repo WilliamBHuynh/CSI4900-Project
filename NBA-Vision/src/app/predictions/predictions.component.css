@@ -23,12 +23,19 @@
     background-color: var(--highlight-colour);
   }
 
+  .btn:hover i {
+    color: black;
+  }
+
   .arrow {
     color: white;
   }
 
   :focus {
     background-color: var(--highlight-colour);
+  }
+
+  :focus i {
     color: black;
   }
 

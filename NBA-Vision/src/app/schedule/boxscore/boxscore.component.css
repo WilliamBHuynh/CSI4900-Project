@@ -7,10 +7,18 @@
 }
 .btn:hover {
   background-color: var(--highlight-colour);
+}
+.btn:hover i {
+  color: black;
+}
+.btn:hover label{
   color: black;
 }
 .btn:focus {
   background-color: var(--highlight-colour);
+  color: black;
+}
+.btn:focus label {
   color: black;
 }
 .table-hover tr:hover  {
@@ -22,6 +30,8 @@
 }
 :focus {
   background-color: var(--highlight-colour);
+}
+:focus i {
   color: black;
 }
 .fontChange {
