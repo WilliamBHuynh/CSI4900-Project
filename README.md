@@ -1,30 +1,11 @@
 # CSI4900[F] Honours Project: NBA Vision
+NBA Vision is an NBA stats and predictions app focued on accessbility for the visually impaired with machine learning integration for predicting games.
 
-## Development Environment Setup
-Prerequisites: npm, Python, Angular CLI, Django 
-### Angular
-In the root directory, navigate to Angular project
->cd NBA-Vision
+## Created by
+William Huynh and Jugraj Rahal
 
-Install packages
->npm install
+## Supervised by
+Professor Stephane Somé
 
-Compile, build and run the webapp
->ng serve
-
-### Python
-In the root directory, create virtual Python environment 
->python -m venv <env_name>
-
-Start the virtual environment
->.\<env_name>\Scripts\activate
-
-Navigate to Django project
->cd NbaAPI
-
-Apply database migrations
->python manage.py makemigrations NbaApp \
->python manage.py migrate NbaApp 
-
-Start the server
->python manage.py runserver
+## More info
+To view more info about NBA Vision, please visit the [wiki page](https://github.com/WilliamBHuynh/CSI4900-Project/wiki).
