@@ -6,24 +6,14 @@ from basketball_reference_scraper.box_scores import get_box_scores
 from nba_api.stats.endpoints import teamdashboardbyteamperformance
 from pathlib import Path
 from NbaApp.models import Games
-from datetime import datetime;
-from bs4 import BeautifulSoup
 from NbaApp.serializers import GameSerializer
+from datetime import datetime
+from bs4 import BeautifulSoup
 import pandas as pd
 import os
 import pickle
-from datetime import datetime;
-from bs4 import BeautifulSoup
 import requests
 import time
-from pathlib import Path
-
-import json
-
-
-from NbaApp.models import Games
-from NbaApp.serializers import GameSerializer
-
 
 
 @csrf_exempt
