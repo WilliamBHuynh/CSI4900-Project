@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScheduleComponent } from './schedule.component';
 import {ScheduleEntry} from "./schedule-entry";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('ScheduleComponent', () => {
   let component: ScheduleComponent;
@@ -9,7 +11,8 @@ describe('ScheduleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScheduleComponent ]
+      declarations: [ ScheduleComponent ],
+      imports: [ HttpClientTestingModule, RouterTestingModule ]
     })
     .compileComponents();
   });
@@ -24,17 +27,10 @@ describe('ScheduleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show final score', () => {
+  it('should add a entry to entries list', () => {
     const newEntry: ScheduleEntry = {homeTeamName: "TOR", awayTeamName: "LAC", live: true, homeTeamScore: 100,
       awayTeamScore: 88, date: new Date()};
     component.addEntry(newEntry);
-    expect(component).toContain(newEntry.homeTeamScore);
-  });
-
-  it('should show no score', () => {
-    const newEntry: ScheduleEntry = {homeTeamName: "TOR", awayTeamName: "LAC", live: false, homeTeamScore: 0,
-      awayTeamScore: 0, date: new Date()};
-    component.addEntry(newEntry);
-    expect(component).toContain(0);
+    expect(component.entries.length).toEqual(1);
   });
 });
