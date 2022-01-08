@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class GameService {
-  readonly APIUrl = "http://127.0.0.1:8000";
+  readonly APIUrl = "https://nba-vision-server.herokuapp.com";
   predData :any;
 
   constructor(private http: HttpClient) { }

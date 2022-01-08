@@ -8,8 +8,8 @@
       <button aria-label="Go back a day" class="btn" (click)="goBackDay()" appAutoFocus>
         <i class="fa fa-arrow-circle-left fa-2x arrow"></i>
       </button>
-    <label class="date" aria-hidden="true">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1])
-      + " " + this.today.toISOString().split('T', 1)[0].split("-")[2]}}</label>
+    <label class="date" aria-hidden="true">{{convertMonth(this.today.toISOString().split('T', 1)[0].split("-")[1].substring(1))
+      + " " + this.today.toISOString().split('T', 1)[0].split("-")[2].substring(1)}}</label>
     <button aria-label="Go to next day" class="btn" (click)="goForwardDay()">
       <i class="fa fa-arrow-circle-right fa-2x arrow"></i>
     </button>
