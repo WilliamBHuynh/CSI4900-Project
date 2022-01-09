@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,8 +27,7 @@ SECRET_KEY = 'django-insecure-v7(q&+p3+8ppzc!*v-a)3nclc2wo^z&%$rc*6@p$+gje8^jr01
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['nba-vision.herokuapp.com']
 
 # Application definition
 
@@ -82,13 +82,14 @@ WSGI_APPLICATION = 'NbaAPI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd6qv43kbmiut42',
+        'USER': 'pohzkixvqakwrw',
+        'PASSWORD': '2d64ed05ca3021cc729a7aff85196cba69f3a3d1218ef107306f30a3e5fd1396',
+        'HOST': 'ec2-54-80-70-66.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -127,7 +128,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 django_heroku.settings(locals())
 
 # Default primary key field type
