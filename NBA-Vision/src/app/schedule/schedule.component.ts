@@ -41,8 +41,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.refreshSchedule();
     this.announcer.announce(
-      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
-      " " + this.today.toISOString().split('T', 1)[0].split("-")[2] + this.shortcutMsg);
+      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1].substring(1)) +
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2].substring(1) + this.shortcutMsg);
   }
 
   ngOnDestroy(): void {
@@ -88,8 +88,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   announceDate(): void {
     this.announcer.announce(
-      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
-      " " + this.today.toISOString().split('T', 1)[0].split("-")[2]);
+      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1].substring(1)) +
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2].substring(1));
   }
 
   navHome(): void {

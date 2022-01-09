@@ -1,2 +1,4 @@
 PyEnv/
 .idea/
+node_modules/
+dist/
