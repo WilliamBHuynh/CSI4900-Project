@@ -2,6 +2,8 @@
 
 # compiled output
 PyEnv/
+NBA-Vision/
+NbaAPI/
 /dist
 /tmp
 /out-tsc
