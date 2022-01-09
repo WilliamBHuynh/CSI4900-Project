@@ -5,6 +5,8 @@ db.sqlite3
 migrations/
 media/
 PyEnv/
+NBA-Vision/
+node_modules/
 # C extensions
 *.so
 
