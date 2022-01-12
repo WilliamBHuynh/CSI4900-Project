@@ -41,8 +41,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.refreshSchedule();
     this.announcer.announce(
-      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1].substring(1)) +
-      " " + this.today.toISOString().split('T', 1)[0].split("-")[2].substring(1) + this.shortcutMsg);
+      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2] + this.shortcutMsg);
   }
 
   ngOnDestroy(): void {
@@ -88,8 +88,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   announceDate(): void {
     this.announcer.announce(
-      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1].substring(1)) +
-      " " + this.today.toISOString().split('T', 1)[0].split("-")[2].substring(1));
+      "Games for " + this.convertFullMonth(this.today.toISOString().split('T', 1)[0].split("-")[1]) +
+      " " + this.today.toISOString().split('T', 1)[0].split("-")[2]);
   }
 
   navHome(): void {
@@ -98,23 +98,23 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   convertMonth(monthNum: string): string {
     switch(monthNum) {
-      case "1":
+      case "01":
         return "Jan";
-      case "2":
+      case "02":
         return "Feb";
-      case "3":
+      case "03":
         return "Mar";
-      case "4":
+      case "04":
         return "Apr";
-      case "5":
+      case "05":
         return "May";
-      case "6":
+      case "06":
         return "Jun";
-      case "7":
+      case "07":
         return "Jul";
-      case "8":
+      case "08":
         return "Aug";
-      case "9":
+      case "09":
         return "Sep";
       case "10":
         return "Oct";
@@ -129,23 +129,23 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   convertFullMonth(monthNum: string): string {
     switch(monthNum) {
-      case "1":
+      case "01":
         return "January";
-      case "2":
+      case "02":
         return "February";
-      case "3":
+      case "03":
         return "March";
-      case "4":
+      case "04":
         return "April";
-      case "5":
+      case "05":
         return "May";
-      case "6":
+      case "06":
         return "June";
-      case "7":
+      case "07":
         return "July";
-      case "8":
+      case "08":
         return "August";
-      case "9":
+      case "09":
         return "September";
       case "10":
         return "October";
